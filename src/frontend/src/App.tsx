@@ -4,7 +4,7 @@ import Homepage from './section/Homepage';
 function App() {
 
   return (
-    <main className=''>
+    <main className='w-auto h-auto'>
         <Homepage/> 
     </main >
   );
