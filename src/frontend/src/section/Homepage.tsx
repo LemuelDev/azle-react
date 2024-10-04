@@ -143,14 +143,14 @@ const Homepage = () => {
             </div>
         </section>
 
-
         <footer className='w-auto h-auto bg-[#76f4C4]'>
-            <div className='max-w-[1000px] mx-auto py-16 grid gap-4'>
+            <div className='max-w-[1000px] mx-auto py-16 px-4 grid gap-4'>
                 <div className=' text-center'>
                     <h4 className='text-2xl font-bold '>"The greatest threat to our planet is the belief that someone else will save it." </h4>
                 </div>
                 <p className='text-lg text-right'>– Robert Swan</p>
             </div>
+            <p className='text-center pb-4'>All rights reserved 2024</p>
         </footer>
 
 
