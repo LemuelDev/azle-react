@@ -1,11 +1,10 @@
-import { useState } from 'react';
-import Homepage from './section/Homepage';
+import AppRoutes from './routes';
 
 function App() {
 
   return (
     <main className='w-auto h-auto'>
-        <Homepage/> 
+         <AppRoutes/>
     </main >
   );
 }
