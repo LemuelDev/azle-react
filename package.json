@@ -15,6 +15,7 @@
     "workspaces": [
         "src/backend",
         "src/frontend"
+<<<<<<< HEAD
     ],
     "dependencies": {
         "react": "^18.3.1",
@@ -25,4 +26,7 @@
         "@types/react-dom": "^18.3.0",
         "typescript": "^5.6.2"
     }
+=======
+    ]
+>>>>>>> 92d695108cb504ee2bfac1a54af6393eef25ca02
 }
