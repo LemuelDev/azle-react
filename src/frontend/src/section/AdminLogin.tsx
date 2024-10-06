@@ -37,9 +37,9 @@ const AdminLogin = () => {
   return (
     <section
       className="flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url('/mesh-gradient (1).png')` }}
+      style={{ backgroundImage: `url('/blob-scene-haikei.png')` }}
     >
-      <div className="flex justify-center items-center max-w-[500px] shadow-lg rounded-md px-10 py-6 bg-cover bg-center bg-no-repeat">
+      <div className="flex justify-center items-center max-w-[500px] shadow-xl  px-10 py-6 backdrop-blur-[6px] backdrop-saturate-[190%] bg-white/40 rounded-[12px] border border-[#d1d5db]/30">
         <div className="grid gap-4 text-center py-6">
           <div className="flex flex-col items-center justify-center gap-3">
             <img src="./favicon.ico" alt="" />
