@@ -1,36 +1,52 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // To handle redirects
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; // To handle redirects
+import { ToastContainer, toast } from "react-toastify";
 
 const AdminLogin = () => {
-  // State for form inputs
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  // State for form inputs and fetched data
+  const [adminData, setAdminData] = useState([]);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate(); // For navigation
 
+  // Fetch the data from the database
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/get-admin");
+        const data = await response.json();
+        setAdminData(data); // Store admin data in state
+      } catch (error) {
+        toast.error("Error fetching data from database");
+      }
+    };
+    fetchData();
+  }, []);
+
   // Handle form submission
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent form refresh
 
     try {
-      // Make the API request to check login credentials
-      const response = await axios.post('/api/get-admin', {
-        username,
-        password,
-      });
+      // Check for matching admin credentials
+      const foundAdmin = adminData.find(
+        (admin: { username: string; password: string }) => {
+          return admin.username === username && admin.password === password;
+        }
+      );
 
-      // Assume response contains { success: true } if credentials are correct
-      if (response.data.success) {
+      if (foundAdmin) {
+        localStorage.setItem("adminAuthenticated", "true");
         // Redirect to the admin dashboard on success
-        navigate('/admin');
+        navigate("/admin");
       } else {
-        // Show error message if login fails
-        setErrorMessage('Invalid username or password');
+        setErrorMessage("Invalid username or password");
+        toast.error("Invalid username or password"); // Show toast message
       }
     } catch (error) {
-      console.error('Login error:', error);
-      setErrorMessage('An error occurred during login');
+      toast.error("Error logging in");
     }
   };
 
@@ -39,16 +55,21 @@ const AdminLogin = () => {
       className="flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url('/blob-scene-haikei.png')` }}
     >
-      <div className="flex justify-center items-center max-w-[500px] shadow-xl  px-10 py-6 backdrop-blur-[6px] backdrop-saturate-[190%] bg-white/40 rounded-[12px] border border-[#d1d5db]/30">
+      <div className="flex justify-center items-center max-w-[500px] shadow-xl px-10 py-6 backdrop-blur-[6px] backdrop-saturate-[190%] bg-white/40 rounded-[12px] border border-[#d1d5db]/30">
         <div className="grid gap-4 text-center py-6">
           <div className="flex flex-col items-center justify-center gap-3">
-            <img src="./favicon.ico" alt="" />
+            <img src="./favicon.ico" alt="Logo" />
             <h4 className="text-3xl font-bold">Admin Login</h4>
           </div>
 
-          <form onSubmit={handleLogin} className="grid gap-4 items-center text-left px-8">
+          <form
+            onSubmit={handleLogin}
+            className="grid gap-4 items-center text-left px-8"
+          >
             <div className="grid">
-              <label htmlFor="username" className="text-lg">Username</label>
+              <label htmlFor="username" className="text-lg">
+                Username
+              </label>
               <input
                 type="text"
                 name="username"
@@ -60,7 +81,9 @@ const AdminLogin = () => {
             </div>
 
             <div className="grid">
-              <label htmlFor="password" className="text-lg">Password</label>
+              <label htmlFor="password" className="text-lg">
+                Password
+              </label>
               <input
                 type="password"
                 name="password"
@@ -79,6 +102,7 @@ const AdminLogin = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </section>
   );
 };
