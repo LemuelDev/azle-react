@@ -94,9 +94,9 @@ const AdminLogin = () => {
               />
             </div>
 
-            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+            {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
 
-            <button className="px-10 py-3 rounded-md bg-blue-600 hover:bg-blue-700 text-white mt-4 text-lg font-bold">
+            <button className="px-10 py-3 rounded-md bg-lime-600 hover:bg-lime-700 text-white mt-4 text-lg font-bold">
               LOGIN
             </button>
           </form>
