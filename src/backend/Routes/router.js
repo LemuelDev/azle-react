@@ -10,7 +10,12 @@ const router = Router();
 
 // test the api http://localhost:3000/api/test
 router.get("/test", (req, res) => {
-  res.send("Hello World!");
+  try {
+    res.send("Hello World!");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
 });
 
 // routes name http://localhost:3000/api/get-admin

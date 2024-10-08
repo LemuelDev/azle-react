@@ -2,8 +2,8 @@ const mysql = require("mysql");
 
 const connection = mysql.createConnection({
   host: "localhost",
-  username: "root",
-  password: "gwenn0701",
+  user: "root",
+  password: "gwen0701",
   database: "volunteer_climate_action_database",
 });
 
