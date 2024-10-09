@@ -9,6 +9,8 @@ import AdminProfile from './AdminProfile';
 import TrackEvent from '../components/TrackEvent';
 import TrackEventReport from '../components/TrackEventReport';
 import NotFound from '../components/NotFound';
+import VolunteerList from './VolunteerList';
+import CreateEvent from './CreateEvent';
 
 
 const AdminDashboard = () => {
@@ -26,9 +28,11 @@ const AdminDashboard = () => {
                <Routes>
                   <Route path="/" element={<Greetings />} />
                   <Route path="events" element={<Events />} />
+                  <Route path="volunteer-list" element={<VolunteerList />} />
                   <Route path="event-reports" element={<EventsReport />} />
                   <Route path="profile" element={<AdminProfile />} />
                   <Route path="track-event" element={<TrackEvent />} />
+                  <Route path="create-event" element={<CreateEvent />} />
                   <Route path="track-eventReport" element={<TrackEventReport />} />
                   
                   {/* Default route for 404 page */}

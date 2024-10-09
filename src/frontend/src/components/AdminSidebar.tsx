@@ -44,6 +44,17 @@ const AdminSidebar = () => {
             </a>
           </li>
 
+          <li className="mb-2">
+            <a
+              href="/admin/volunteer-list"
+              className={isActiveRoute('/admin/volunteer-list') 
+                ? 'block p-2 bg-gray-700 text-white rounded' 
+                : 'block p-2 hover:bg-gray-700 hover:text-white rounded'}
+            >
+              Volunteer List
+            </a>
+          </li>
+
       <li className="mb-2">
         <a
           href="/admin/event-reports"
