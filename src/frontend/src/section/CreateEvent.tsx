@@ -87,7 +87,7 @@ const CreateEvent = () => {
 
             <div className="grid max-md:col-span-2">
               <label htmlFor="event_picture" className="text-lg">
-                Cover Picture:
+                Event Picture:
               </label>
               <input
                 type='file'

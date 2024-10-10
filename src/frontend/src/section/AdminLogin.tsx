@@ -17,18 +17,18 @@ const AdminLogin = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate(); // For navigation
 
-  // Fetch the data from the database
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/get-admin");
-        setAdminData(response.data); // Store admin data in state
-      } catch (error) {
-        toast.error("Error fetching data from database");
-      }
-    };
-    fetchData();
-  }, []);
+  // // Fetch the data from the database
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:5000/api/get-admin");
+  //       setAdminData(response.data); // Store admin data in state
+  //     } catch (error) {
+  //       toast.error("Error fetching data from database");
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   // Handle form submission
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {

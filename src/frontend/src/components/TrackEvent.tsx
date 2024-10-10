@@ -19,6 +19,7 @@ const TrackEvent = () => {
             <p>Event Details Here.</p>
             <div className="card-actions justify-end">
               <button className="btn btn-primary">Edit Event</button>
+              <button className="btn btn-error text-white">Delete</button>
             </div>
           </div>
         </div>
