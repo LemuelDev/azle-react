@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
 } from "typeorm";
-import { Event } from "./events"; // Assuming Event is in a separate file
+import { Event } from "./events";
 
 @Entity({
   name: "events_reports",
@@ -17,7 +17,7 @@ export class EventReport extends BaseEntity {
   @Column({ type: "varchar", length: 255 })
   report_description: string;
 
-  @Column({ type: "blob" })
+  @Column({ type: "blob", nullable: true }) // Make nullable if you might not have an image
   report_img: Buffer;
 
   @ManyToOne(() => Event, (event) => event.event_id)

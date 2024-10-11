@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
 } from "typeorm";
-import { Event } from "./events"; // Assuming Event is in a separate file
+import { Event } from "./events";
 
 @Entity({
   name: "volunteers",

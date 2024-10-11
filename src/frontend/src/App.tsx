@@ -1,11 +1,18 @@
-import AppRoutes from './routes';
+import AppRoutes from "./routes";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  BrowserRouter,
+} from "react-router-dom";
 
 function App() {
-
   return (
-    <main className='w-auto h-auto'>
-         <AppRoutes/>
-    </main >
+    <BrowserRouter>
+      <main className="w-auto h-auto">
+        <AppRoutes />
+      </main>
+    </BrowserRouter>
   );
 }
 
