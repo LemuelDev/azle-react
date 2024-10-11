@@ -101,14 +101,21 @@ export default class ApisController {
   }
 
   static async createEvent(request: Request, response: Response) {
-    const { event_name, event_details, event_date, event_time, event_address } =
-      request.body;
+    const {
+      event_name,
+      event_details,
+      event_date,
+      event_time,
+      event_address,
+      event_image,
+    } = request.body;
     const newEvent = Event.create({
       event_name,
       event_details,
       event_date,
       event_time,
       event_address,
+      event_image,
     });
     await newEvent.save();
     response.json({ status: 1, message: "Event created!", data: newEvent });
@@ -122,6 +129,7 @@ export default class ApisController {
       event_date,
       event_time,
       event_address,
+      event_image,
     } = request.body;
     await Event.update(event_id, {
       event_name,
@@ -129,6 +137,7 @@ export default class ApisController {
       event_date,
       event_time,
       event_address,
+      event_image,
     });
     response.json({ status: 1, message: "Event updated!" });
   }

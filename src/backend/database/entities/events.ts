@@ -21,4 +21,7 @@ export class Event extends BaseEntity {
 
   @Column({ type: "varchar", length: 255 })
   event_address: string;
+
+  @Column({ type: "varchar", length: 255, nullable: true })
+  event_image: string;
 }
