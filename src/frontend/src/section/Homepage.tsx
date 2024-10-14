@@ -1,9 +1,8 @@
 import React from 'react'
 import { useEffect } from 'react';
 import Navbar from './Navbar'
-import AOS from 'aos';
+// import AOS from 'aos';
 const Homepage = () => {
-
     useEffect(() => {
         AOS.init({
           duration: 1000,
