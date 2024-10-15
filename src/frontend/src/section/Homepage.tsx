@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react';
 import Navbar from './Navbar'
+import { Link } from 'react-router-dom';
 // import AOS from 'aos';
 const Homepage = () => {
     // useEffect(() => {
@@ -17,9 +18,8 @@ const Homepage = () => {
         style={{ backgroundImage: `url('/mesh-gradient (1).png')` }}
         >
         <div className='flex items-center justify-center text-center gap-4 flex-col pt-40 sm:pt-60  max-w-[950px] mx-auto px-4' >
-            <h3 className='sm:text-5xl text-4xl font-bold leading-[60px] '>Join the Movement for a Greener Tomorrow</h3>
+            <h3 className='sm:text-5xl text-4xl font-bold leading-[60px] '>GreenFuture Volunteer</h3>
             <p className='pt-4 text-xl tracking-wide ' >Be the change. Volunteer for climate action and help protect the planet for future generations.</p>
-            <a href="#events" className=' outline-none px-10 py-3 rounded-lg text-white text-lg bg-[#305773] hover:bg-[#243642] mt-4 '>Volunteer</a>
         </div>
     </section>
 
@@ -87,9 +87,11 @@ const Homepage = () => {
                 <p className="mt-4">
                 Join us in planting trees to help restore natural habitats and combat climate change.
                 </p>
-                <a href="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
+
+                <Link to="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
                 Volunteer Now
-                </a>
+                </Link>
+
                 
             </div>
             <div
@@ -104,9 +106,9 @@ const Homepage = () => {
                 <p className="mt-4">
                 Join us in planting trees to help restore natural habitats and combat climate change.
                 </p>
-                <a href="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
+                <Link to="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
                 Volunteer Now
-                </a>
+                </Link>
             </div>
             <div
                 className="p-6 bg-gray-50 rounded-lg shadow-md"
@@ -120,9 +122,9 @@ const Homepage = () => {
                 <p className="mt-4">
                 Join us in planting trees to help restore natural habitats and combat climate change.
                 </p>
-                <a href="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
+                <Link to="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
                 Volunteer Now
-                </a>
+                </Link>
             </div>
         </div>
             </div>

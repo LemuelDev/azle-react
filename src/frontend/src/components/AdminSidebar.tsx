@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 const AdminSidebar = () => {
 
   function toggleSidebar() {
@@ -34,47 +34,47 @@ const AdminSidebar = () => {
             </li>
 
            <li className="mb-2">
-            <a
-              href="/admin/events"
+            <Link
+              to="/admin/events"
               className={isActiveRoute('/admin/events') 
                 ? 'block p-2 bg-gray-700 text-white rounded' 
                 : 'block p-2 hover:bg-gray-700 hover:text-white rounded'}
             >
               Events
-            </a>
+            </Link>
           </li>
 
           <li className="mb-2">
-            <a
-              href="/admin/volunteer-list"
+            <Link
+              to="/admin/volunteer-list"
               className={isActiveRoute('/admin/volunteer-list') 
                 ? 'block p-2 bg-gray-700 text-white rounded' 
                 : 'block p-2 hover:bg-gray-700 hover:text-white rounded'}
             >
               Volunteer List
-            </a>
+            </Link>
           </li>
 
       <li className="mb-2">
-        <a
-          href="/admin/event-reports"
+        <Link
+          to="/admin/event-reports"
           className={isActiveRoute('/admin/event-reports') 
             ? 'block p-2 bg-gray-700 text-white rounded' 
             : 'block p-2 hover:bg-gray-700 hover:text-white rounded'}
         >
           Event Reports
-        </a>
+        </Link>
       </li>
 
       <li className="mb-2">
-        <a
-          href="/admin/profile"
+        <Link
+          to="/admin/profile"
           className={isActiveRoute('/admin/profile') 
             ? 'block p-2 bg-gray-700 text-white rounded' 
             : 'block p-2 hover:bg-gray-700 hover:text-white rounded'}
         >
           Profile
-        </a>
+        </Link>
       </li>
         </ul>
         
