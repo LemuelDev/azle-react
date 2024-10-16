@@ -1,14 +1,39 @@
 import React from 'react'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from './Navbar'
 import { Link } from 'react-router-dom';
-// import AOS from 'aos';
+import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+
+
+interface Event {
+    event_id: number;
+    event_name: string;
+    event_details: string;
+    event_date: string;
+    event_time: string;
+    event_address: string;
+    event_image: string;
+}
+
+
 const Homepage = () => {
-    // useEffect(() => {
-    //     AOS.init({
-    //       duration: 1000,
-    //     });
-    //   }, []);
+
+    const [eventData, setEventData] = useState<Event[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+              const response = await axios.get(`${import.meta.env.VITE_CANISTER_URL}/get-events`);
+              setEventData(response.data.data); 
+              
+            } catch (error) {
+              toast.error("Error fetching data from database");
+            } 
+          };
+          fetchData();
+        
+      }, []);
 
   return (
     <section>
@@ -20,8 +45,9 @@ const Homepage = () => {
         <div className='flex items-center justify-center text-center gap-4 flex-col pt-40 sm:pt-60  max-w-[950px] mx-auto px-4' >
             <h3 className='sm:text-5xl text-4xl font-bold leading-[60px] '>GreenFuture Volunteer</h3>
             <p className='pt-4 text-xl tracking-wide ' >Be the change. Volunteer for climate action and help protect the planet for future generations.</p>
+            
         </div>
-    </section>
+        </section>
 
         <section className=' w-auto pt-8 min-h-[90vh]'>
             <div className='py-8 mt-20 grid grid-col-span-1 md:grid-cols-2 gap-7 items-start px-6 max-w-[1200px] mx-auto'>
@@ -70,65 +96,34 @@ const Homepage = () => {
         </section>
 
         <section id="events" className="py-20 bg-white">
-            <div className="container mx-auto px-4 text-center">
-                <h2 className="text-4xl font-bold mb-10" >
-                Upcoming Events
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div
-                className="p-6 bg-gray-50 rounded-lg shadow-md"
-            >
-                <h3 className="text-2xl font-semibold mb-4">Tree Planting Campaign</h3>
-                <img
-                src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-                alt="card-image"
-                className="rounded-xl mt-2 w-full h-[30vh] md:w-[25vw] object-cover mx-auto"
-                />
-                <p className="mt-4">
-                Join us in planting trees to help restore natural habitats and combat climate change.
-                </p>
-
-                <Link to="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
-                Volunteer Now
-                </Link>
-
-                
-            </div>
-            <div
-                className="p-6 bg-gray-50 rounded-lg shadow-md"
-            >
-                <h3 className="text-2xl font-semibold mb-4">Tree Planting Campaign</h3>
-                <img
-                src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-                alt="card-image"
-                className="rounded-xl mt-2 w-full h-[30vh] md:w-[25vw] object-cover mx-auto"
-                />
-                <p className="mt-4">
-                Join us in planting trees to help restore natural habitats and combat climate change.
-                </p>
-                <Link to="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
-                Volunteer Now
-                </Link>
-            </div>
-            <div
-                className="p-6 bg-gray-50 rounded-lg shadow-md"
-            >
-                <h3 className="text-2xl font-semibold mb-4">Tree Planting Campaign</h3>
-                <img
-                src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-                alt="card-image"
-                className="rounded-xl mt-2 w-full h-[30vh] md:w-[25vw] object-cover mx-auto"
-                />
-                <p className="mt-4">
-                Join us in planting trees to help restore natural habitats and combat climate change.
-                </p>
-                <Link to="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
-                Volunteer Now
-                </Link>
-            </div>
-        </div>
-            </div>
-        </section>
+                <div className="container mx-auto px-4 text-center">
+                    <h2 className="text-4xl font-bold mb-10">
+                    Upcoming Events
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    {eventData.length > 0 ? (
+                        eventData.map((event) => (
+                        <div key={event.event_id} className="p-6 bg-gray-50 rounded-lg shadow-md">
+                            <h3 className="text-2xl font-semibold mb-4">{event.event_name}</h3>
+                            <img
+                            src={event.event_image}
+                            alt={event.event_name}
+                            className="rounded-xl mt-2 w-full h-[30vh] md:w-[25vw] object-cover mx-auto"
+                            />
+                            <p className="mt-4">{event.event_details}</p>
+                            <Link to="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
+                                Volunteer Now
+                            </Link>
+                        </div>
+                        ))
+                    ) : (
+                        <div className='flex items-center justify-center h-64'>
+                            <p className="text-lg text-gray-600 text-center">No upcoming events yet.</p>
+                        </div>
+                    )}
+                    </div>
+                </div>
+         </section>
 
       
 
@@ -223,7 +218,7 @@ const Homepage = () => {
             <p className='text-center pb-4'>All rights reserved 2024</p>
         </footer>
 
-
+        <ToastContainer/>
 
     </section>
   )

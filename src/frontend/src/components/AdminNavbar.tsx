@@ -1,6 +1,8 @@
 import React from 'react'
-
+import {useNavigate } from 'react-router-dom';
 const AdminNavbar = () => {
+  
+  const navigate = useNavigate(); 
 
   function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
@@ -8,6 +10,14 @@ const AdminNavbar = () => {
       sidebar.classList.toggle('-translate-x-full');
     }
   }
+
+  const handleLogout = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent form refresh
+    localStorage.setItem("adminAuthenticated", "false");
+    navigate("/admin-login");
+  };
+
+  
   return (
     <nav className=" shadow p-4">
     <div className="container mx-auto flex justify-between px-4 items-center lg:justify-end gap-4">
@@ -21,16 +31,16 @@ const AdminNavbar = () => {
        <div className="flex justify-end gap-4 items-center">
        <button className="btn btn-error" onClick={() => (document.getElementById('my_modal_1') as HTMLDialogElement)?.showModal()}>
             Logout
-          </button>
-   
+        </button>
+      
       {/* modal */}
             <dialog id="my_modal_1" className="modal">
               <div className="modal-box">
                 <h3 className="text-xl font-bold">Confirmation</h3>
                 <p className="pt-4 text-lg text-center">Are you sure you want to logout ?</p>
                 <div className="modal-action">
-                  <form action="" method="POST">
-                    <button className="btn btn-error">Logout</button>
+                  <form action="" onSubmit={handleLogout}>
+                    <button className="btn btn-error" type='submit'>Logout</button>
                   </form>
                   <form method="dialog">
                     <button className="btn">Close</button>

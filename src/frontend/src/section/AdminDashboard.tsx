@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AdminSidebar from '../components/AdminSidebar'
 import AdminNavbar from '../components/AdminNavbar'
 import {Route, Routes } from 'react-router-dom'; 
@@ -12,9 +12,17 @@ import NotFound from '../components/NotFound';
 import VolunteerList from './VolunteerList';
 import CreateEvent from './CreateEvent';
 import CreateEventReport from './CreateEventReport';
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminDashboard = () => {
+  
+  useEffect(() => {
+      if(localStorage.getItem("adminAuthenticated") === "true"){
+        toast.success("Login Successfully!");
+      };
+  }, []);
+
   return (
 
         <section className='flex h-screen'>
@@ -44,10 +52,8 @@ const AdminDashboard = () => {
               </div>
                         
           </main>
-
-
         </div>
-
+          <ToastContainer/>
       </section>
   )
 }
