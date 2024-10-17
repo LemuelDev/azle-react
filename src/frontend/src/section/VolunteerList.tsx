@@ -24,7 +24,7 @@ const VolunteerList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_CANISTER_URL}/get-events`);
+        const response = await axios.get(`${import.meta.env.VITE_CANISTER_URL}/get-volunteers`);
         setVolunteerData(response.data.data); 
         
       } catch (error) {

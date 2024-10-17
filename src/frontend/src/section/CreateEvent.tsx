@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {toast} from 'react-toastify';
 
 interface FormData {
   event_name: string;
@@ -61,16 +62,13 @@ const CreateEvent: React.FC = () => {
     console.log(form);
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_CANISTER_URL}/create-event`, form, {
-        headers: {
-          'Content-Type': 'multipart/form-data', // Important for file uploads
-        },
-      });
+      const response = await axios.post(`${import.meta.env.VITE_CANISTER_URL}/create-event`, form);
       console.log('Event created:', response.data);
 
       navigate('/events'); 
     } catch (error) {
       console.error('Error creating event:', error);
+      toast.error('Error creating event');
       // Handle the error (show error message)
     }
   };
@@ -80,7 +78,10 @@ const CreateEvent: React.FC = () => {
       <div className='flex justify-between items-center gap-4 px-4 pb-8'>
         <h1 className="text-3xl font-bold">Create Event</h1>
       </div>
-      <form onSubmit={handleSubmit} className="grid gap-8 grid-cols-1 md:grid-cols-2 items-start text-left px-8 max-w-[1000px] mx-auto p-6 shadow-lg rounded-lg">
+      <form 
+      onSubmit={handleSubmit} 
+      encType="multipart/form-data"
+      className="grid gap-8 grid-cols-1 md:grid-cols-2 items-start text-left px-8 max-w-[1000px] mx-auto p-6 shadow-lg rounded-lg">
         <div className="grid max-md:col-span-2">
           <label htmlFor="event_name" className="text-lg">Event Name:</label>
           <input
