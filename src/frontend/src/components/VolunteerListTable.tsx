@@ -77,7 +77,7 @@ const VolunteerListTable: React.FC<VolunteerListTableProps> = ({volunteers}) => 
       <div 
       className="flex flex-col mt-10 items-center justify-center">
         <div 
-        className="text-3xl text-gray-600  pt-8 mb-4">No Volunteers at the moment.</div>
+        className="text-2xl text-gray-600  pt-16 mb-4">No Volunteers at the moment.</div>
       </div> 
       }
 

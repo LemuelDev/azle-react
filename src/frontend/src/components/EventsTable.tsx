@@ -45,7 +45,7 @@ const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
         ))
       ) : (
         <div className='flex flex-col items-center justify-center h-64 lg:col-span-3 sm:col-span-2'>
-          <p className="text-lg text-gray-600">No current events yet.</p>
+          <p className="text-2xl font-bold text-gray-600">No current events yet.</p>
           <Link to={'/admin/create-event'} className='btn btn-primary mt-4'>
             Create Event
           </Link>

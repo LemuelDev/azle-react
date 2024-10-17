@@ -58,7 +58,7 @@ const EventsReportTable: React.FC<EventReportTableProps> = ({eventReports}) => {
     </div>
     :
      <div className="flex flex-col gap-4 justify-center items-center px-4 pt-40">
-        <h1 className="text-3xl font-bold text-gray-400 ">No Event Reports at the moment!</h1>
+        <h1 className="text-2xl font-bold text-gray-400 ">No Event Reports at the moment!</h1>
         <Link to={'/admin/create-event-report'} className='btn btn-primary text-white'>Create Event Reports</Link> 
    </div> 
 
