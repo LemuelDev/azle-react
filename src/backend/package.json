@@ -4,8 +4,10 @@
     "private": true,
     "type": "module",
     "dependencies": {
+        "@types/multer": "^1.4.12",
         "azle": "^0.21.1",
         "express": "^4.21.0",
+        "multer": "^1.4.5-lts.1",
         "sql.js": "^1.11.0",
         "typeorm": "^0.3.20"
     },

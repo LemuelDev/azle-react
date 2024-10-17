@@ -41,7 +41,7 @@ const EventsReportTable: React.FC<EventReportTableProps> = ({eventReports}) => {
             <h2 className="card-title">{eventReport.event.event_name}</h2>
             
             {/* Truncated description */}
-            <p className="line-clamp-3">
+            <p className="">
               {eventReport.report_description}
             </p>
             

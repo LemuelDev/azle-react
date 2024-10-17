@@ -1,6 +1,6 @@
 import ApisController from "App/Controllers/Http/ApisController";
 import { Router } from "express";
-import * as multer from "multer";
+import * as multer from 'multer';
 const Route = Router();
 
 const storage = multer.diskStorage({
