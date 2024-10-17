@@ -5,6 +5,7 @@ import AdminLogin from "./section/AdminLogin";
 import AdminDashboard from "./section/AdminDashboard";
 import 'react-toastify/dist/ReactToastify.css';
 import AdminSignup from "./section/AdminSignup";
+import EventReportPage from "./section/EventReportPage";
 function App() {
   return (
     <main className="w-auto h-auto">
@@ -14,6 +15,7 @@ function App() {
           {/* Define routes with their respective components */}
           <Route path="/" element={<Homepage />} />
           <Route path="/volunteer" element={<Volunteerpage />} />
+          <Route path="/event_reports" element={<EventReportPage />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin-signup" element={<AdminSignup />} />
           <Route path="/admin/*" element={<AdminDashboard />} />

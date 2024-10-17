@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 
-
 interface Event {
     event_id: number;
     event_name: string;
@@ -16,16 +15,26 @@ interface Event {
     event_image: string;
 }
 
+interface EventReport {
+    event_reports_id: number;
+    report_description: string;
+    report_img: string;
+    event: Event;
+  }
+
 
 const Homepage = () => {
 
     const [eventData, setEventData] = useState<Event[]>([]);
+    const[eventReport, setEventReportData] = useState<EventReport[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
               const response = await axios.get(`${import.meta.env.VITE_CANISTER_URL}/get-events`);
+              const response2 = await axios.get(`${import.meta.env.VITE_CANISTER_URL}/get-event-reports`);
               setEventData(response.data.data); 
+              setEventReportData(response2.data.data);
               
             } catch (error) {
               toast.error("Error fetching data from database");
@@ -124,6 +133,56 @@ const Homepage = () => {
                     </div>
                 </div>
          </section>
+         <section className="w-auto min-h-[75vh]">
+            <div>
+                <div className="pt-6">
+                <h4 className="text-4xl text-center font-bold text-black">Recent Event<br/></h4>
+                </div>
+                {eventReport.length > 0 ? (
+                <div className="py-8 mt-10 grid grid-cols-1 md:grid-cols-2 gap-7 items-start px-6 max-w-[1200px] mx-auto">
+                    <div>
+                    <div className="h-[60vh] w-[50vw]">
+                        <img
+                        src={eventReport[0].report_img || "/resilient climate.webp"} 
+                        alt={eventReport[0].event.event_name || "Event Image"}
+                        className="w-full h-full rounded-lg shadow-md"
+                        />
+                    </div>
+                    </div>
+                    <div className="">
+                    <h4 className="text-2xl text-center font-bold text-green-500">{eventReport[0].event.event_name || "Tree Planting"}<br/></h4>
+                    <p className="text-lg tracking-wide leading-10">
+                        {eventReport[0].report_description || "Climate Action, one of the Sustainable Development Goals (SDG 13), focuses on urgent actions to combat climate change and its impacts. It emphasizes the need to strengthen resilience and adaptive capacity to climate-related hazards, integrate climate measures into policies, and raise awareness."}
+                    </p>
+                    {/* Event date and details */}
+                    <div className="block items-start justify-start mt-5 py-3 rounded-lg pl-2 border-l-4 border-green-500 bg-green-100">
+                        <span className="text-gray-700 text-sm text-center">Date of event: <span className="text-gray-500">{eventReport[0].event.event_date || "Thursday, October 17, 2024"}</span></span><br/>
+                        <span className="text-gray-700 text-sm text-center">Time: <span className="text-gray-500">{eventReport[0].event.event_time || "09:46 PM"}</span></span><br/>
+                        <span className="text-gray-700 text-sm text-center">Address of event: <span className="text-gray-500">{eventReport[0].event.event_address || "Sinabacan, Cande, Zambales"}</span></span><br/>
+                    </div>
+                    </div>
+                </div>
+                ) : (
+                <div className="text-center py-20">
+                    <p className="text-lg text-gray-600">No recent events to display.</p>
+                </div>
+                )}
+            </div>
+            {
+                eventReport.length > 0 && (
+                    <>
+                    <div className="text-center">
+                        <Link to={'/event_reports'} className="text-green-600 text-xl font-semibold underline mb-4 mt-4 block">
+                        See more
+                        </Link>
+                    </div>
+                    <hr className="w-[70vw] m-auto" />
+                    </>
+                )
+            }
+
+            </section>
+
 
       
 
