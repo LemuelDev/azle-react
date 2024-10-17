@@ -58,30 +58,7 @@ return (
                   >Become a Volunteer</a>
               </div>
           </section>
-
-          
-          {/* <section className="py-16 bg-white">
-              <div className="container mx-auto px-4 text-center"
-                  >
-                  <h2 className="text-3xl font-bold text-green-600 mb-6"
-                  data-aos="fade-up"
-                  data-aos-delay="100">Our Key Initiatives</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2">
-                      <div className='h-[60vh] w-[50w]'>
-                          <img src="/resilient climate.webp" alt="" className='w-full h-full'/>
-                      </div>
-                      <div className=''>
-                          <p className='text-lg tracking-wide leading-10'
-                          data-aos="fade-up"
-                          data-aos-delay="300">
-                          Climate Action, one of the Sustainable Development Goals (SDG 13), focuses on urgent actions to combat climate change and its impacts.
-                          It emphasizes the need to strengthen resilience and adaptive capacity to climate-related hazards, integrate climate measures into policies, and raise awareness.
-                          The goal encourages global cooperation to reduce carbon emissions, enhance disaster risk management, and promote sustainable practices to protect ecosystems and ensure a sustainable future for all. 
-                          </p>
-                      </div>
-                  </div>
-              </div>
-          </section> */}
+        
           
           <section className=' w-auto pt-8 min-h-[90vh]'>
               <div className='pt-4'>

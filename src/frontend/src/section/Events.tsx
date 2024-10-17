@@ -2,7 +2,7 @@ import React from 'react'
 import EventsTable from '../components/EventsTable'
 import { useState, useEffect } from 'react'
 import axios from "axios";
-import {  toast } from "react-toastify";
+import {  toast, ToastContainer } from "react-toastify";
 import { Link } from 'react-router-dom';
 
 interface Event {
@@ -42,6 +42,7 @@ const Events = () => {
         )}
       </div>
       <EventsTable events={eventData} />
+      <ToastContainer/>
     </>
   );
   

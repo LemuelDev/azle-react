@@ -20,6 +20,7 @@ const AdminDashboard = () => {
   useEffect(() => {
       if(localStorage.getItem("adminAuthenticated") === "true"){
         toast.success("Login Successfully!");
+        localStorage.setItem("adminAuthenticated", "false")
       };
   }, []);
 

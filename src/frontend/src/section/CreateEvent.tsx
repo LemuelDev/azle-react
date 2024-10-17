@@ -1,76 +1,76 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {toast} from 'react-toastify';
-
-interface FormData {
-  event_name: string;
-  event_details: string;
-  event_date: string;
-  event_time: string;
-  event_address: string;
-  event_image: File | null; // Handle file uploads
-}
 
 const CreateEvent: React.FC = () => {
   const navigate = useNavigate();
-  
-  // Form state
-  const [formData, setFormData] = useState<FormData>({
-    event_name: '',
-    event_details: '',
-    event_date: '',
-    event_time: '',
-    event_address: '',
-    event_image: null,
-  });
 
-  // Handle form field changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  // Handle file upload change
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFormData({
-        ...formData,
-        event_image: e.target.files[0],
-      });
-    }
-  };
+  // Individual form states
+  const [eventName, setEventName] = useState<string>('');
+  const [eventDetails, setEventDetails] = useState<string>('');
+  const [eventDate, setEventDate] = useState<string>('');
+  const [eventTime, setEventTime] = useState<string>('');
+  const [eventAddress, setEventAddress] = useState<string>('');
+  const [eventImage, setEventImage] = useState<File | null>(null);
 
   // Handle form submission
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+  
+    // Create a new FormData object
+    const formData = new FormData();
+    formData.append('event_name', eventName);
+    formData.append('event_details', eventDetails);
+    formData.append('event_date', eventDate);
+    formData.append('event_time', eventTime);
+    formData.append('event_address', eventAddress);
+  
+    // Only append the image if it's not null
+    if (eventImage) {
+      formData.append('event_image', eventImage);
+    }
     
-    // Create a FormData object to send file and other data
-    const form = new FormData();
-    form.append('event_name', formData.event_name);
-    form.append('event_details', formData.event_details);
-    form.append('event_date', formData.event_date);
-    form.append('event_time', formData.event_time);
-    form.append('event_address', formData.event_address);
-    if (formData.event_image) {
-      form.append('event_image', formData.event_image);
-    }
-
-    console.log(form);
-
+    // Sending the form data to your API
     try {
-      const response = await axios.post(`${import.meta.env.VITE_CANISTER_URL}/create-event`, form);
-      console.log('Event created:', response.data);
-
-      navigate('/events'); 
+      const response = await axios.post(`${import.meta.env.VITE_CANISTER_URL}/create-event`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(response.data);
+      // Navigate or show success message
+      navigate('/events');
     } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Error creating event');
-      // Handle the error (show error message)
+      console.error("Error creating event:", error);
+      // Handle error (e.g., show toast)
     }
+  };
+  
+
+  // Individual change handlers
+  const handleEventNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEventName(e.target.value);
+  };
+
+  const handleEventDetailsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setEventDetails(e.target.value);
+  };
+
+  const handleEventDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEventDate(e.target.value);
+  };
+
+  const handleEventTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEventTime(e.target.value);
+  };
+
+  const handleEventAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEventAddress(e.target.value);
+  };
+
+  const handleEventImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null; // Get the selected file
+    setEventImage(file);
   };
 
   return (
@@ -88,8 +88,8 @@ const CreateEvent: React.FC = () => {
             type="text"
             name="event_name"
             id="event_name"
-            value={formData.event_name}
-            onChange={handleChange}
+            value={eventName}
+            onChange={handleEventNameChange}
             className="shadow-lg rounded-md px-10 py-2 bg-transparent outline-none border-2 border-gray-600 text-black placeholder:text-black w-full"
             required
           />
@@ -100,8 +100,8 @@ const CreateEvent: React.FC = () => {
           <textarea
             name="event_details"
             id="event_details"
-            value={formData.event_details}
-            onChange={handleChange}
+            value={eventDetails}
+            onChange={handleEventDetailsChange}
             className="shadow-lg rounded-md p-2 min-h-[120px] min-w-[50px] bg-transparent outline-none border-2 border-gray-600 text-black placeholder:text-black w-full"
             required
           />
@@ -113,8 +113,8 @@ const CreateEvent: React.FC = () => {
             type="date"
             name="event_date"
             id="event_date"
-            value={formData.event_date}
-            onChange={handleChange}
+            value={eventDate}
+            onChange={handleEventDateChange}
             className="shadow-lg rounded-md px-10 py-2 bg-transparent outline-none border-2 border-gray-600 text-black placeholder:text-black w-full"
             required
           />
@@ -126,8 +126,8 @@ const CreateEvent: React.FC = () => {
             type="time"
             name="event_time"
             id="event_time"
-            value={formData.event_time}
-            onChange={handleChange}
+            value={eventTime}
+            onChange={handleEventTimeChange}
             className="shadow-lg rounded-md px-10 py-2 bg-transparent outline-none border-2 border-gray-600 text-black placeholder:text-black w-full"
             required
           />
@@ -139,8 +139,8 @@ const CreateEvent: React.FC = () => {
             type="text"
             name="event_address"
             id="event_address"
-            value={formData.event_address}
-            onChange={handleChange}
+            value={eventAddress}
+            onChange={handleEventAddressChange}
             className="shadow-lg rounded-md px-10 py-2 bg-transparent outline-none border-2 border-gray-600 text-black placeholder:text-black w-full"
             required
           />
@@ -152,7 +152,8 @@ const CreateEvent: React.FC = () => {
             type="file"
             name="event_image"
             id="event_image"
-            onChange={handleFileChange}
+            accept='images/*'
+            onChange={handleEventImageChange}
             className="shadow-lg rounded-md px-10 py-2 bg-transparent outline-none border-2 border-gray-600 text-black placeholder:text-black w-full"
             required
           />

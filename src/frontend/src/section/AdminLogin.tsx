@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -109,7 +109,9 @@ const AdminLogin = () => {
             >
               {isLoading ? "Loading..." : "LOGIN"}
             </button>
-         
+            <Link to={'/admin-signup'} className="pt-3 text-center text-lg text-black hover:text-blue-500">
+                Don't have an account? Signup.
+            </Link>
           </form>
         </div>
       </div>
