@@ -1,8 +1,18 @@
 import ApisController from "App/Controllers/Http/ApisController";
 import { Router } from "express";
-
+import * as multer from "multer";
 const Route = Router();
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // Specify the folder where files will be saved
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`); // Use a timestamp to avoid name clashes
+  },
+});
+
+const upload = multer({ storage: storage });
 /*
 |--------------------------------------------------------------------------
 | Authenticated Routes
@@ -33,7 +43,11 @@ Route.post("/delete-admin", ApisController.deleteAdmin);
 
 // Event Routes
 Route.get("/get-events", ApisController.getEvents);
-Route.post("/create-event", ApisController.createEvent);
+Route.post(
+  "/create-event",
+  upload.single("event_image"),
+  ApisController.createEvent
+);
 Route.post("/update-event", ApisController.updateEvent);
 Route.post("/delete-event", ApisController.deleteEvent);
 
@@ -45,7 +59,11 @@ Route.post("/delete-volunteer", ApisController.deleteVolunteer);
 
 // Event Report Routes
 Route.get("/get-event-reports", ApisController.getEventReports);
-Route.post("/create-event-report", ApisController.createEventReport);
+Route.post(
+  "/create-event-report",
+  upload.single("report_img"),
+  ApisController.createEventReport
+);
 Route.post("/update-event-report", ApisController.updateEventReport);
 Route.post("/delete-event-report", ApisController.deleteEventReport);
 

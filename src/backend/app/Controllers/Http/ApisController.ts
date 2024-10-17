@@ -101,14 +101,9 @@ export default class ApisController {
   }
 
   static async createEvent(request: Request, response: Response) {
-    const {
-      event_name,
-      event_details,
-      event_date,
-      event_time,
-      event_address,
-      event_image,
-    } = request.body;
+    const { event_name, event_details, event_date, event_time, event_address } =
+      request.body;
+    const event_image = request.file ? request.file.path : undefined;
     const newEvent = Event.create({
       event_name,
       event_details,
@@ -164,6 +159,7 @@ export default class ApisController {
       gender,
       age,
       address,
+      event_name,
     } = request.body;
     const newVolunteer = Volunteer.create({
       firstname,
@@ -174,6 +170,7 @@ export default class ApisController {
       gender,
       age,
       address,
+      event_name,
     });
     await newVolunteer.save();
     response.json({
@@ -221,13 +218,25 @@ export default class ApisController {
   }
 
   static async createEventReport(request: Request, response: Response) {
-    const { report_description, report_img, event_id } = request.body;
+    const { report_description, event_id } = request.body;
+    const event_image = request.file ? request.file.path : undefined;
+
+    const event = await Event.findOne(event_id);
+    if (!event) {
+      return response
+        .status(404)
+        .json({ status: 0, message: "Event not found!" });
+    }
+
+    // Create new event report
     const newEventReport = EventReport.create({
       report_description,
-      report_img,
-      event: { event_id },
+      event_image,
+      event,
     });
+
     await newEventReport.save();
+
     response.json({
       status: 1,
       message: "Event report created!",
@@ -236,14 +245,40 @@ export default class ApisController {
   }
 
   static async updateEventReport(request: Request, response: Response) {
-    const { event_reports_id, report_description, report_img, event_id } =
-      request.body;
-    await EventReport.update(event_reports_id, {
-      report_description,
-      report_img,
-      event: { event_id },
+    const { event_reports_id, report_description, event_id } = request.body;
+
+    // Fetch the existing event report
+    const eventReport = await EventReport.findOne(event_reports_id);
+    if (!eventReport) {
+      return response
+        .status(404)
+        .json({ status: 0, message: "Event report not found!" });
+    }
+
+    // Update properties
+    eventReport.report_description = report_description;
+
+    if (event_id) {
+      const event = await Event.findOne(event_id);
+      if (!event) {
+        return response
+          .status(404)
+          .json({ status: 0, message: "Event not found!" });
+      }
+      eventReport.event = event;
+    }
+
+    if (request.file) {
+      eventReport.event_image = request.file.path;
+    }
+
+    await eventReport.save();
+
+    response.json({
+      status: 1,
+      message: "Event report updated!",
+      data: eventReport,
     });
-    response.json({ status: 1, message: "Event report updated!" });
   }
 
   static async deleteEventReport(request: Request, response: Response) {

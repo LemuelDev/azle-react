@@ -17,8 +17,8 @@ export class EventReport extends BaseEntity {
   @Column({ type: "varchar", length: 255 })
   report_description: string;
 
-  @Column({ type: "blob", nullable: true }) // Make nullable if you might not have an image
-  report_img: Buffer;
+  @Column({ type: "varchar", length: 255, nullable: true })
+  event_image: string; // Ensure the name matches what you use in createEventReport
 
   @ManyToOne(() => Event, (event) => event.event_id)
   event: Event;
