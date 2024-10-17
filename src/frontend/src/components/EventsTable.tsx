@@ -14,7 +14,6 @@ interface Event {
 interface EventsTableProps {
   events: Event[];
 }
-
 const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 items-start pt-10'>
@@ -45,7 +44,7 @@ const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
           </div>
         ))
       ) : (
-        <div className='flex flex-col items-center justify-center h-64 col-span-3'>
+        <div className='flex flex-col items-center justify-center h-64 lg:col-span-3 sm:col-span-2'>
           <p className="text-lg text-gray-600">No current events yet.</p>
           <Link to={'/admin/create-event'} className='btn btn-primary mt-4'>
             Create Event

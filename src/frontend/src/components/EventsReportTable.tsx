@@ -1,88 +1,69 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
-const EventsReportTable = () => {
+interface Event {
+  event_id: number;
+  event_name: string;
+  event_details: string;
+  event_date: string;
+  event_time: string;
+  event_address: string;
+  event_image: string;
+}
+
+interface EventReport {
+  event_reports_id: number;
+  report_description: string;
+  report_img: string;
+  event: Event;
+}
+
+interface EventReportTableProps{
+  eventReports: EventReport[];
+}
+
+
+
+const EventsReportTable: React.FC<EventReportTableProps> = ({eventReports}) => {
   return (
-    // sample format and data for FE
-   // sample format and data for FE
-
    <>
-   <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 items-start pt-10'>
+    {
+      eventReports.length > 0 ?
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 items-start pt-10'>
     
-     <div className="card bg-base-100 w-[350px] max-h-[450px] shadow-xl">
-        <figure className='min-h-[180px] max-h-[180px]'>
-          <img
-            src="./reforest.jpg"
-            alt="Shoes" />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Tree Planting Campaign!</h2>
-          <p className=""> 
-              <span className='font-bold'> Date:</span> October 13, 2024
-          </p>
-          <p className=""> 
-             <span className='font-bold'>Time:</span> 8am
-          </p>
-          <p className=""> 
-              <span className='font-bold'>Address:</span> Sinabacan Candelaria Zambales
-          </p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">View Report</button>
+      {
+       eventReports.map((eventReport) => (
+        <div className="card bg-base-100 w-[350px] max-h-[450px] shadow-xl">
+          <figure className="min-h-[180px] max-h-[180px]">
+            <img src={eventReport.report_img} alt={eventReport.event.event_name} />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">{eventReport.event.event_name}</h2>
+            
+            {/* Truncated description */}
+            <p className="line-clamp-3">
+              {eventReport.report_description}
+            </p>
+            
+            <div className="card-actions justify-end">
+              <Link to={'/admin/track-event-report'} className="btn btn-primary">
+                View Report
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+        ))
+      }
 
-      <div className="card bg-base-100 w-[350px] max-h-[450px] shadow-xl">
-        <figure className='min-h-[180px] max-h-[180px]'>
-          <img
-            src="./reforest.jpg"
-            alt="Shoes" />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Tree Planting Campaign!</h2>
-          <p className=""> 
-              <span className='font-bold'> Date:</span> October 13, 2024
-          </p>
-          <p className=""> 
-             <span className='font-bold'>Time:</span> 8am
-          </p>
-          <p className=""> 
-              <span className='font-bold'>Address:</span> Mambog Botolan Candelaria Zambales
-          </p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">View Report</button>
-          </div>
-        </div>
-      </div>
+    </div>
+    :
+     <div className="flex flex-col gap-4 justify-center items-center px-4 pt-40">
+        <h1 className="text-3xl font-bold text-gray-400 ">No Event Reports at the moment!</h1>
+        <Link to={'/admin/create-event-report'} className='btn btn-primary text-white'>Create Event Reports</Link> 
+   </div> 
 
-      <div className="card bg-base-100 w-[350px] max-h-[450px] shadow-xl">
-        <figure className='min-h-[180px] max-h-[180px]'>
-          <img
-            src="./reforest.jpg"
-            alt="Shoes" />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Tree Planting Campaign!</h2>
-          <p className=""> 
-              <span className='font-bold'> Date:</span> October 13, 2024
-          </p>
-          <p className=""> 
-             <span className='font-bold'>Time:</span> 8am
-          </p>
-          <p className=""> 
-              <span className='font-bold'>Address:</span> Sinabacan Candelaria Zambales
-          </p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">View Report</button>
-          </div>
-        </div>
-      </div>
-</div>
-
-   {/* if no event data */}
-   {/* <div className="flex flex-col gap-4 justify-center items-center px-4 pt-40">
-   <h1 className="text-3xl font-bold text-gray-400 ">No Event Reports at the moment!</h1>
-   <a href="" className='btn btn-primary text-white'>Create Event</a> 
-   </div> */}
+    }
+ 
 </>
   )
 }

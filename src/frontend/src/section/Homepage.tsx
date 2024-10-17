@@ -117,7 +117,7 @@ const Homepage = () => {
                         </div>
                         ))
                     ) : (
-                        <div className='flex items-center justify-center h-64'>
+                        <div className='flex items-center justify-center h-64 md:col-span-3'>
                             <p className="text-lg text-gray-600 text-center">No upcoming events yet.</p>
                         </div>
                     )}
