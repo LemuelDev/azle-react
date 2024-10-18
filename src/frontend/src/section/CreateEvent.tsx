@@ -5,7 +5,6 @@ import axios from 'axios';
 const CreateEvent: React.FC = () => {
   const navigate = useNavigate();
 
-  // Individual form states
   const [eventName, setEventName] = useState<string>('');
   const [eventDetails, setEventDetails] = useState<string>('');
   const [eventDate, setEventDate] = useState<string>('');
@@ -13,38 +12,26 @@ const CreateEvent: React.FC = () => {
   const [eventAddress, setEventAddress] = useState<string>('');
   const [eventImage, setEventImage] = useState<File | null>(null);
 
-  // Handle form submission
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-    // Create a new FormData object
-    const formData = new FormData();
-    formData.append('event_name', eventName);
-    formData.append('event_details', eventDetails);
-    formData.append('event_date', eventDate);
-    formData.append('event_time', eventTime);
-    formData.append('event_address', eventAddress);
-  
-    // Only append the image if it's not null
-    if (eventImage) {
-      formData.append('event_image', eventImage);
-    }
+    const payload = {
+      event_name: eventName,
+      event_details: eventDetails,
+      event_date: eventDate,
+      event_time: eventTime,
+      event_address: eventAddress,
+    };
     
-    // Sending the form data to your API
     try {
-      const response = await axios.post(`${import.meta.env.VITE_CANISTER_URL}/create-event`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post(`${import.meta.env.VITE_CANISTER_URL}/create-event`, payload);
       console.log(response.data);
-      // Navigate or show success message
-      navigate('/events');
+      navigate('/admin/events');
     } catch (error) {
       console.error("Error creating event:", error);
-      // Handle error (e.g., show toast)
     }
   };
+  
   
 
   // Individual change handlers
@@ -80,7 +67,6 @@ const CreateEvent: React.FC = () => {
       </div>
       <form 
       onSubmit={handleSubmit} 
-      encType="multipart/form-data"
       className="grid gap-8 grid-cols-1 md:grid-cols-2 items-start text-left px-8 max-w-[1000px] mx-auto p-6 shadow-lg rounded-lg">
         <div className="grid max-md:col-span-2">
           <label htmlFor="event_name" className="text-lg">Event Name:</label>
