@@ -6,6 +6,7 @@ import AdminDashboard from "./section/AdminDashboard";
 import 'react-toastify/dist/ReactToastify.css';
 import AdminSignup from "./section/AdminSignup";
 import EventReportPage from "./section/EventReportPage";
+
 function App() {
   return (
     <main className="w-auto h-auto">
