@@ -3,48 +3,56 @@ import { useEffect } from 'react';
 import  { useState } from 'react';
 
 const Volunteerpage = () => {
-//   useEffect(() => {
-//     AOS.init({
-//       duration: 1000,
-//     });
-//   }, []);
 
-const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',       
-    middlename: '',
-    extensionname: '',
-    contact: '',
-    gender: '',
-    address: '',
-    email: '',
-});
+    const [firstname, setFirstName] = useState<string>('');
+    const [middlename, setMiddlename] = useState<string>('');
+    const [lastname, setLastname] = useState<string>('');
+    const [extensioname, setExtensionname] = useState<string>('');
+    const [address , setAddress] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [contactName, setContactName] = useState<string>('');
+    const [age, setAge] = useState<string>('');
+    const [gender, setGender] =  useState<string>('');
+    const [isLoading, setIsLoading] = useState(false)
 
-// const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({ ...formData, [name]: value });
-// };
+    const handleEventFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFirstName(e.target.value);
+      };
+    
+      const handleEventMiddleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setMiddlename(e.target.value);
+      };
 
-// const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log('Volunteer Data Submitted:', formData);
-// };
+      const handleEventLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLastname(e.target.value);
+      };
 
-const currentDate = new Date();
+      const handleEventExtensionNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setExtensionname(e.target.value);
+      };
 
-const dateInWords = currentDate.toLocaleDateString('en-US', {
-weekday: 'long',
-year: 'numeric',
-month: 'long',
-day: 'numeric',
-});
+    
+      const handleEventEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+      };
+      
+      const handleEventAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAge(e.target.value);
+      };
+      const handleEventContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setContactName(e.target.value);
+      };
 
-const timeInWords = currentDate.toLocaleTimeString('en-US', {
-hour: '2-digit',
-minute: '2-digit',
-hour12: true,
-});
-   
+      const handleEventAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAddress(e.target.value);
+      };
+
+      const handleEventGenderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setGender(e.target.value);
+      };
+
+      
+
 return (
   <div className="bg-gray-100 min-h-screen">
           <section className="relative bg-cover bg-center h-[80vh] bg-[url('/bg.png')]">
@@ -54,8 +62,8 @@ return (
                   >Act Now for a Better Tomorrow</h1>
                   <p className="text-lg mb-6"
                   >Join our climate change movement and be a part of the solution.</p>
-                  <a href="#sign-up" className="bg-green-500 hover:bg-green-700 text-white py-3 px-6 rounded-full shadow-lg transition duration-300"
-                  >Become a Volunteer</a>
+                  {/* <a href="#sign-up" className="bg-green-500 hover:bg-green-700 text-white py-3 px-6 rounded-full shadow-lg transition duration-300"
+                  >Become a Volunteer</a> */}
               </div>
           </section>
         
@@ -85,10 +93,10 @@ return (
                       {/* date of events */}
                       <div className='block items-start justify-start mt-5 py-3 rounded-lg pl-2 border-l-4  border-green-500 bg-green-100' 
                          >
-                          <span className='text-gray-700 text-sm text-center'>Date of event: <span className='text-gray-500'>{dateInWords}</span></span><br/>
-                          <span className='text-gray-700 text-sm text-center'>Time: <span className='text-gray-500'>{timeInWords}</span></span><br/>
+                          <span className='text-gray-700 text-sm text-center'>Date of event: <span className='text-gray-500'></span></span><br/>
+                          <span className='text-gray-700 text-sm text-center'>Time: <span className='text-gray-500'></span></span><br/>
                           <span className='text-gray-700 text-sm text-center'>Address of event: <span className='text-gray-500'>
-                              Sinabacan, Cande, Zambales
+                              
                           </span></span><br/>
                       </div>
                   </div>
@@ -118,8 +126,8 @@ return (
                                   name="firstname"
                                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                                   placeholder="Your first name"
-                                  value={formData.firstname}
-                                  // onChange={handleChange}
+                                  value={firstname}
+                                  onChange={handleEventFirstNameChange}
                                   required
                               />
                           </div>
@@ -131,8 +139,8 @@ return (
                                   name="lastname"
                                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                                   placeholder="Your last name"
-                                  value={formData.lastname}
-                                  // onChange={handleChange}
+                                  value={lastname}
+                                  onChange={handleEventLastNameChange}
                                   required
                               />
                           </div>
@@ -147,8 +155,8 @@ return (
                                   name="middlename"
                                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                                   placeholder="Your middle name"
-                                  value={formData.middlename}
-                                  // onChange={handleChange}
+                                  value={middlename}
+                                  onChange={handleEventMiddleNameChange}
                               />
                           </div>
                           <div>
@@ -159,8 +167,8 @@ return (
                                   name="extensionname"
                                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                                   placeholder="Your extension name"
-                                  value={formData.extensionname}
-                                  // onChange={handleChange}
+                                  value={extensioname}
+                                  onChange={handleEventExtensionNameChange}
                               />
                           </div>
                       </div>
@@ -169,13 +177,13 @@ return (
                           <div>
                               <label htmlFor="contact" className="block text-left mb-2 text-sm font-medium text-gray-900">Contact No.</label>
                               <input
-                                  type="text"
+                                  type="number"
                                   id="contact"
                                   name="contact"
                                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                                   placeholder="Your contact number"
-                                  value={formData.contact}
-                                  // onChange={handleChange}
+                                  value={contactName}
+                                  onChange={handleEventContactChange}
                                   required
                               />
                           </div>
@@ -185,16 +193,30 @@ return (
                                   id="gender"
                                   name="gender"
                                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-                                  value={formData.gender}
-                                  // onChange={handleChange}
+                                 value={gender}
+                                  onChange={handleEventGenderChange}
                                   required
                               >
                                   <option value="">Select your gender</option>
                                   <option value="Male">Male</option>
                                   <option value="Female">Female</option>
-                                  <option value="Other">Other</option>
+                                  <option value="prefer not to say">Prefer not to say</option>
                               </select>
                           </div>
+                      </div>
+
+                      <div className="mt-4">
+                          <label htmlFor="age" className="block text-left mb-2 text-sm font-medium text-gray-900">Age</label>
+                          <input
+                              type="number"
+                              id="age"
+                              name="age"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                              placeholder="Your age"
+                              value={address}
+                              onChange={handleEventAgeChange}
+                              required
+                          />
                       </div>
 
                       <div className="mt-4">
@@ -205,8 +227,8 @@ return (
                               name="address"
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                               placeholder="Your address"
-                              value={formData.address}
-                              // onChange={handleChange}
+                              value={address}
+                              onChange={handleEventAddressChange}
                               required
                           />
                       </div>
@@ -219,8 +241,9 @@ return (
                               name="email"
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                               placeholder="Your email"
-                              value={formData.email}
-                              // onChange={handleChange}
+                              value={email}
+                              onChange={handleEventEmailChange}
+                              
                               required
                           />
                       </div>
@@ -228,8 +251,9 @@ return (
                       <button
                           type="submit"
                           className="bg-green-600 text-white py-3 px-8 rounded-full mt-6 hover:bg-green-700 transition duration-300"
+                          disabled={isLoading}
                       >
-                          Join Our Mission
+                          {isLoading ? 'Joining...' : 'Join Our Mission'}
                       </button>
                   </form>
                   </div>

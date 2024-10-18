@@ -14,6 +14,7 @@ import CreateEvent from './CreateEvent';
 import CreateEventReport from './CreateEventReport';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import EditTrackEvent from '../components/EditTrackEvent';
 
 const AdminDashboard = () => {
   
@@ -41,11 +42,11 @@ const AdminDashboard = () => {
                   <Route path="volunteer-list" element={<VolunteerList />} />
                   <Route path="event-reports" element={<EventsReport />} />
                   <Route path="profile" element={<AdminProfile />} />
-                  <Route path="track-event" element={<TrackEvent />} />
-                  <Route path="track-event-report" element={<TrackEventReport/>} />
                   <Route path="create-event" element={<CreateEvent />} />
+                  <Route path="track-event" element={<TrackEvent />} />
+                  <Route path="track-event/edit" element={<EditTrackEvent />} />
+                  <Route path="track-event-report" element={<TrackEventReport/>} />
                   <Route path="create-event-report" element={<CreateEventReport />} />
-                  <Route path="track-eventReport" element={<TrackEventReport />} />
                   
                   {/* Default route for 404 page */}
                   <Route path="*" element={<NotFound />} />

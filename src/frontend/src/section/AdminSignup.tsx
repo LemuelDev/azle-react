@@ -7,6 +7,7 @@ const AdminSignup: React.FC = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState<string>(""); // Explicit type
     const [password, setPassword] = useState<string>(""); // Explicit type
+    const [isLoading, setIsLoading] = useState(false);
 
     // Function to check if admin already exists
     const checkAdminExists = async (username: string): Promise<boolean> => { // Explicit type
@@ -27,7 +28,8 @@ const AdminSignup: React.FC = () => {
 
     const handleSignup = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => { // Explicit type
         e.preventDefault(); // Prevent default form submission
-
+        setIsLoading(true);
+        
         // Check if admin already exists
         const adminExists = await checkAdminExists(username);
         if (adminExists) {
@@ -46,6 +48,8 @@ const AdminSignup: React.FC = () => {
         } catch (error) {
             console.log("SIGNUP ERROR:", error);
             toast.error("Signup error");
+        }finally {
+            setIsLoading(false);
         }
     };
 
@@ -87,12 +91,12 @@ const AdminSignup: React.FC = () => {
                                 required
                             />
                         </div>
-
                         <button
                             className="px-10 py-3 rounded-md text-white mt-4 text-lg font-bold bg-lime-600 hover:bg-lime-700"
                             type="submit"
+                            disabled={isLoading}  // Disable the button while loading
                         >
-                            Signup
+                            {isLoading ? "Signing up..." : "Signup"}  {/* Toggle text */}
                         </button>
                         <Link to={'/admin-login'} className="pt-3 text-center text-lg text-black hover:text-blue-500">
                             Already have an account? Login.

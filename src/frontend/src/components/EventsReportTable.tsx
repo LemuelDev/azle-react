@@ -8,7 +8,6 @@ interface Event {
   event_date: string;
   event_time: string;
   event_address: string;
-  event_image: string;
 }
 
 interface EventReport {
@@ -22,20 +21,17 @@ interface EventReportTableProps{
   eventReports: EventReport[];
 }
 
-
-
 const EventsReportTable: React.FC<EventReportTableProps> = ({eventReports}) => {
   return (
    <>
     {
       eventReports.length > 0 ?
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 items-start pt-10'>
-    
       {
        eventReports.map((eventReport) => (
         <div className="card bg-base-100 w-[350px] max-h-[450px] shadow-xl">
           <figure className="min-h-[180px] max-h-[180px]">
-            <img src={eventReport.report_img} alt={eventReport.event.event_name} />
+            <img  src="/resilient climate.webp" alt={eventReport.event.event_name} />
           </figure>
           <div className="card-body">
             <h2 className="card-title">{eventReport.event.event_name}</h2>

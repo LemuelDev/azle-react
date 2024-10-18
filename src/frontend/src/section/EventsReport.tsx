@@ -12,7 +12,6 @@ interface Event {
   event_date: string;
   event_time: string;
   event_address: string;
-  event_image: string;
 }
 
 interface EventReport {
@@ -21,7 +20,6 @@ interface EventReport {
   report_img: string;
   event: Event;
 }
-
 
 
 const EventsReport = () => {

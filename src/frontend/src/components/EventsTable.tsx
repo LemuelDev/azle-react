@@ -8,7 +8,6 @@ interface Event {
   event_date: string;
   event_time: string;
   event_address: string;
-  event_image: string;
 }
 
 interface EventsTableProps {
@@ -22,11 +21,11 @@ const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
           <div key={event.event_id} className="card bg-base-100 w-[350px] max-h-[450px] shadow-xl">
             <figure className='min-h-[180px] max-h-[180px]'>
               <img
-                src={event.event_image}
+                src="/resilient climate.webp"
                 alt={event.event_name}
               />
             </figure>
-            <div className="card-body">
+            <div className="card-body max-w-1/2">
               <h2 className="card-title">{event.event_name}</h2>
               <p>
                 <span className='font-bold'>Date:</span> {event.event_date}
@@ -38,7 +37,11 @@ const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
                 <span className='font-bold'>Address:</span> {event.event_address}
               </p>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">View Event</button>
+                <Link 
+                to={'/admin/track-event'} 
+                state ={{event}}
+                className="btn btn-primary">View Event
+                </Link>
               </div>
             </div>
           </div>

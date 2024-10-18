@@ -108,31 +108,38 @@ const Homepage = () => {
                 <div className="container mx-auto px-4 text-center">
                     <h2 className="text-4xl font-bold mb-10">
                     Upcoming Events
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-                    {eventData.length > 0 ? (
-                        eventData.map((event) => (
-                        <div key={event.event_id} className="p-6 bg-gray-50 rounded-lg shadow-md">
-                            <h3 className="text-2xl font-semibold mb-4">{event.event_name}</h3>
-                            <img
-                            src={event.event_image}
-                            alt={event.event_name}
-                            className="rounded-xl mt-2 w-full h-[30vh] md:w-[25vw] object-cover mx-auto"
-                            />
-                            <p className="mt-4">{event.event_details}</p>
-                            <Link to="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
-                                Volunteer Now
-                            </Link>
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center items-start"> 
+                            {eventData.length > 0 ? (
+                                eventData.map((event) => (
+                                    <div key={event.event_id} className="p-4 bg-gray-50 rounded-lg shadow-md">
+                                        <h3 className="text-2xl font-semibold mb-4">{event.event_name}</h3>
+                                        <img
+                                            src="/resilient climate.webp"
+                                            alt={event.event_name}
+                                            className="rounded-xl mt-2 w-full h-[40vh] md:w-[25vw] object-cover mx-auto"
+                                        />
+                                        <p className="mt-4 max-h-20 overflow-hidden">
+                                            <span className="block overflow-hidden text-ellipsis whitespace-nowrap">
+                                                {event.event_details}
+                                            </span>
+                                        </p>
+                                        <Link to="/volunteer" className="text-green-600 font-semibold hover:underline mb-4 mt-4 block">
+                                            Volunteer Now
+                                        </Link>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className='flex items-center justify-center h-64 md:col-span-3'>
+                                    <p className="text-lg text-gray-600 text-center">No upcoming events yet.</p>
+                                </div>
+                            )}
                         </div>
-                        ))
-                    ) : (
-                        <div className='flex items-center justify-center h-64 md:col-span-3'>
-                            <p className="text-lg text-gray-600 text-center">No upcoming events yet.</p>
-                        </div>
-                    )}
-                    </div>
+
                 </div>
          </section>
+
+
          <section className="w-auto min-h-[75vh]">
             <div>
                 <div className="pt-6">
@@ -143,7 +150,7 @@ const Homepage = () => {
                     <div>
                     <div className="h-[60vh] w-[50vw]">
                         <img
-                        src={eventReport[0].report_img || "/resilient climate.webp"} 
+                        src="/resilient climate.webp"
                         alt={eventReport[0].event.event_name || "Event Image"}
                         className="w-full h-full rounded-lg shadow-md"
                         />

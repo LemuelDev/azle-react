@@ -1,41 +1,23 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import { useLocation, useNavigate} from 'react-router-dom';
+import {toast} from "react-toastify";
 
-const CreateEvent: React.FC = () => {
-  
-  const navigate = useNavigate();
-  const [eventName, setEventName] = useState<string>('');
-  const [eventDetails, setEventDetails] = useState<string>('');
-  const [eventDate, setEventDate] = useState<string>('');
-  const [eventTime, setEventTime] = useState<string>('');
-  const [eventAddress, setEventAddress] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);  // Disable button
-    const payload = {
-      event_name: eventName,
-      event_details: eventDetails,
-      event_date: eventDate,
-      event_time: eventTime,
-      event_address: eventAddress,
-    };
-  
-    try {
-      const response = await axios.post(`${import.meta.env.VITE_CANISTER_URL}/create-event`, payload);
-      console.log(response.data);
-      localStorage.setItem("createEvent", "true");
-      navigate('/admin/events');
-    } catch (error) {
-      console.error("Error creating event:", error);
-    } finally {
-      setIsLoading(false);  // Re-enable button
-    }
-  };
+const EditTrackEvent: React.FC = () => {
 
-  // Individual change handlers
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { event } = location.state || {};
+    const [isLoading, setIsLoading] = useState(false);
+    const [eventId, setEventId] = useState<number>(0);
+    const [eventName, setEventName] = useState<string>('');
+    const [eventDetails, setEventDetails] = useState<string>('');
+    const [eventDate, setEventDate] = useState<string>('');
+    const [eventTime, setEventTime] = useState<string>('');
+    const [eventAddress, setEventAddress] = useState<string>('');
+
+     // Individual change handlers
   const handleEventNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEventName(e.target.value);
   };
@@ -55,12 +37,46 @@ const CreateEvent: React.FC = () => {
   const handleEventAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEventAddress(e.target.value);
   };
+  
+  useEffect(() => {
+        if(event) {
+            setEventName(event.event_name);
+            setEventId(event.event_id);
+            setEventAddress(event.event_address);
+            setEventDate(event.event_date);
+            setEventDetails(event.event_details);
+            setEventTime(event.event_time);
+        }else {
+            toast.error("No event data found.")
+        }
+  }, [event]);
 
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      await axios.post(`${import.meta.env.VITE_CANISTER_URL}/update-event`, {
+        event_id: eventId,
+        event_name: eventName,
+        event_details: eventDetails,
+        event_date: eventDate,
+        event_time: eventTime,
+        event_address: eventAddress
+      });
+      localStorage.setItem("updateSuccess", "true");
+      navigate('/admin/events'); // Redirect after successful update
+    } catch (error) {
+      console.error('Error updating event: ', error);
+      toast.error('Error updating event');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
-      <div className='flex justify-between items-center gap-4 px-4 pb-8'>
-        <h1 className="text-3xl font-bold">Create Event</h1>
+          <div className='flex justify-between items-center gap-4 px-4 pb-8'>
+        <h1 className="text-3xl font-bold">Edit Event</h1>
       </div>
       <form 
       onSubmit={handleSubmit} 
@@ -134,11 +150,11 @@ const CreateEvent: React.FC = () => {
           className="px-10 py-3 max-w-[250px] col-span-2 mx-auto rounded-md bg-lime-600 hover:bg-lime-700 text-white mt-4 text-lg font-bold"
           disabled={isLoading}  // Disable while loading
         >
-          {isLoading ? "Creating..." : "Create Event"}  {/* Toggle text based on loading state */}
+            {isLoading ? "Updating..." : "Update Event"}  {/* Toggle text based on loading state */}
         </button>
       </form>
     </>
-  );
-};
+  )
+}
 
-export default CreateEvent;
+export default EditTrackEvent
