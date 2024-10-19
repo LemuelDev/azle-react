@@ -4,7 +4,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AdminProfile = () => {
-
   const [adminID, setAdminID] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,17 +16,16 @@ const AdminProfile = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("adminData") || '""');
+    const data = JSON.parse(localStorage.getItem("adminData") || "null");
+
     if (data) {
-      setAdminID(data.id);
+      setAdminID(data.admin_id);
       setUsername(data.username);
       setPassword(data.password);
     }
-    console.log(username);
-    console.log(password);
   }, []);
 
-  const handleUpdateUsername = async ( e: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdateUsername = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission behavior
     setIsLoading2(true);
     try {
@@ -46,7 +44,7 @@ const AdminProfile = () => {
     }
   };
 
-  const handleUpdatePassword = async ( e: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdatePassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission behavior
     setIsLoading(true);
     if (currentPassword === password) {
@@ -88,7 +86,10 @@ const AdminProfile = () => {
       <div className="grid gap-6 shadow-xl rounded-xl">
         <div className="shadow-sm rounded-xl p-8">
           {/* Update Username */}
-          <form onSubmit={handleUpdateUsername} className="grid grid-cols-2 gap-6 items-center">
+          <form
+            onSubmit={handleUpdateUsername}
+            className="grid grid-cols-2 gap-6 items-center"
+          >
             <div className="flex max-sm:flex-col gap-4 items-center col-span-2">
               <div className="flex gap-4 justify-start items-center">
                 <label htmlFor="username">Username:</label>
@@ -113,7 +114,10 @@ const AdminProfile = () => {
           </form>
 
           {/* Update Password */}
-          <form onSubmit={handleUpdatePassword} className="grid gap-4 grid-cols-1 col-span-2 max-w-[770px]">
+          <form
+            onSubmit={handleUpdatePassword}
+            className="grid gap-4 grid-cols-1 col-span-2 max-w-[770px]"
+          >
             <h1 className="text-xl font-bold py-3 max-sm:text-center">
               Update Password
             </h1>
@@ -162,6 +166,7 @@ const AdminProfile = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -60,7 +60,7 @@ const AdminSignup: React.FC = () => {
         }
       );
       // nirevise ko lang to kuys
-      const admin = response.data.data; 
+      const admin = response.data.data;
       if (admin) {
         // Set the admin data directly in localStorage
         localStorage.setItem(
@@ -72,7 +72,7 @@ const AdminSignup: React.FC = () => {
           })
         );
         localStorage.setItem("adminAuthenticated", "true");
-    
+
         // Navigate to the admin dashboard
         navigate("/admin");
       } else {
@@ -84,7 +84,6 @@ const AdminSignup: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-    
   };
   return (
     <section

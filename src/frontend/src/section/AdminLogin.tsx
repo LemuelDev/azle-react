@@ -38,16 +38,16 @@ const AdminLogin = () => {
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent form refresh
-  
+
     if (isLoading) {
       toast.info("Still fetching data, please wait...");
       return;
     }
-  
+
     const foundAdmin = adminData.find((admin) => {
       return admin.username === username && admin.password === password;
     });
-  
+
     if (foundAdmin) {
       // Use the foundAdmin values directly for local storage
       const adminDataToStore = {
@@ -55,21 +55,16 @@ const AdminLogin = () => {
         username: foundAdmin.username,
         password: foundAdmin.password,
       };
-  
+
       // Set local storage
       localStorage.setItem("adminData", JSON.stringify(adminDataToStore));
       localStorage.setItem("adminAuthenticated", "true");
-  
-      // Log the stored data to verify
-      console.log("Stored Admin Data:", adminDataToStore);
-  
       // Navigate to admin page
       navigate("/admin");
     } else {
       toast.error("Invalid username or password"); // Show toast message
     }
   };
-  
 
   return (
     <section
