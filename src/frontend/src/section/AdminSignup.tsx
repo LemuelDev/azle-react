@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+
 interface Admin {
   admin_id: number;
   username: string;
@@ -9,8 +10,6 @@ interface Admin {
 }
 const AdminSignup: React.FC = () => {
   const navigate = useNavigate();
-  const [adminData, setAdminData] = useState<Admin[]>([]);
-  const [adminDataLocalStorage, setAdminDataLocalStorage] = useState({});
   const [username, setUsername] = useState<string>(""); // Explicit type
   const [password, setPassword] = useState<string>(""); // Explicit type
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +40,6 @@ const AdminSignup: React.FC = () => {
   const handleSignup = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
-    // Explicit type
     e.preventDefault(); // Prevent default form submission
     setIsLoading(true);
 
@@ -49,10 +47,10 @@ const AdminSignup: React.FC = () => {
     const adminExists = await checkAdminExists(username);
     if (adminExists) {
       toast.error("Admin already exists. Please choose a different username.");
+      setIsLoading(false);
       return;
     }
 
-    // Proceed with signup
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_CANISTER_URL}/create-admin`,
@@ -61,25 +59,33 @@ const AdminSignup: React.FC = () => {
           password: password,
         }
       );
-      setAdminData(response.data.data);
-      // assume that the first element in the array is the admin
-      setAdminDataLocalStorage({
-        admin_id: adminData[0].admin_id,
-        username: adminData[0].username,
-        password: adminData[0].password,
-      });
-      // set in the local storage the admin data
-      localStorage.setItem("adminData", JSON.stringify(adminDataLocalStorage));
-      localStorage.setItem("adminAuthenticated", "true");
-      navigate("/admin");
+      // nirevise ko lang to kuys
+      const admin = response.data.data; 
+      if (admin) {
+        // Set the admin data directly in localStorage
+        localStorage.setItem(
+          "adminData",
+          JSON.stringify({
+            admin_id: admin.admin_id,
+            username: admin.username,
+            password: admin.password,
+          })
+        );
+        localStorage.setItem("adminAuthenticated", "true");
+    
+        // Navigate to the admin dashboard
+        navigate("/admin");
+      } else {
+        throw new Error("No admin data found in response");
+      }
     } catch (error) {
       console.log("SIGNUP ERROR:", error);
       toast.error("Signup error");
     } finally {
       setIsLoading(false);
     }
+    
   };
-
   return (
     <section
       className="flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat"

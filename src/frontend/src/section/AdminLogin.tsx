@@ -13,10 +13,10 @@ interface Admin {
 const AdminLogin = () => {
   // State for form inputs and fetched data
   const [adminData, setAdminData] = useState<Admin[]>([]);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [adminDataLocalStorage, setAdminDataLocalStorage] = useState({});
-  const [errorMessage, setErrorMessage] = useState("");
+
   const [isLoading, setIsLoading] = useState(true); // Added loading state
   const navigate = useNavigate();
 
@@ -38,36 +38,38 @@ const AdminLogin = () => {
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent form refresh
-
+  
     if (isLoading) {
       toast.info("Still fetching data, please wait...");
       return;
     }
-
+  
     const foundAdmin = adminData.find((admin) => {
-      if (admin.username === username && admin.password === password) {
-        // get the value to set in local storage
-        const data = {
-          admin_id: admin.admin_id,
-          username: admin.username,
-          password: admin.password,
-        };
-        setAdminDataLocalStorage(data);
-        return true;
-      }
+      return admin.username === username && admin.password === password;
     });
-
+  
     if (foundAdmin) {
+      // Use the foundAdmin values directly for local storage
+      const adminDataToStore = {
+        admin_id: foundAdmin.admin_id,
+        username: foundAdmin.username,
+        password: foundAdmin.password,
+      };
+  
+      // Set local storage
+      localStorage.setItem("adminData", JSON.stringify(adminDataToStore));
       localStorage.setItem("adminAuthenticated", "true");
-      console.log(adminData);
-      localStorage.setItem("adminData", JSON.stringify(adminDataLocalStorage));
-      // Redirect to the admin dashboard on success
+  
+      // Log the stored data to verify
+      console.log("Stored Admin Data:", adminDataToStore);
+  
+      // Navigate to admin page
       navigate("/admin");
     } else {
-      setErrorMessage("Invalid username or password");
       toast.error("Invalid username or password"); // Show toast message
     }
   };
+  
 
   return (
     <section
