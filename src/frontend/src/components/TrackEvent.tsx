@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 import { useLocation, useNavigate} from 'react-router-dom';
 import {toast} from "react-toastify";
 import { Link } from 'react-router-dom';
-const TrackEvent: React.FC= () => {
+const TrackEvent: React.FC = () => {
+
   const location = useLocation();
   const navigate = useNavigate();
   const { event } = location.state || {};
@@ -16,8 +17,8 @@ const TrackEvent: React.FC= () => {
     return <p className='pt-40 text-center text-lg font-bold'>No event data found.</p>;
   }
 
-  const handleDeleteClick = (volunteerId: number) => {
-    setEventID(volunteerId);
+  const handleDeleteClick = (eventId: number) => {
+    setEventID(eventId);
     setModalOpen(true);
   };
 

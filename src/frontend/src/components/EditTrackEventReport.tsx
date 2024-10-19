@@ -1,58 +1,73 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
-import {useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import {toast} from "react-toastify";
-const CreateEventReport = () => {
+const EditTrackEventReport = () => {
 
+    const location = useLocation();
     const navigate = useNavigate();
+    const { eventReport } = location.state || {};
     const [isLoading, setIsLoading] = useState(false);
+    const [eventReportId, setEventReportId] = useState<number>(0);
     const [eventName, setEventName]  = useState("");
     const [eventReportDescription, setEventReportDescription] = useState("");
     const [availableEvents, setAvailableEvents] = useState([]);
 
     useEffect(() => {
-      const fetchEvents = async () => {
-          try {   
-              const response = await axios.get(`${import.meta.env.VITE_CANISTER_URL}/get-events`);
-              setAvailableEvents(response.data.data);
-          }catch(error) {
-              toast.error("Error fetching events");
-          }
+        const fetchEvents = async () => {
+            try {   
+                const response = await axios.get(`${import.meta.env.VITE_CANISTER_URL}/get-events`);
+                setAvailableEvents(response.data.data);
+            }catch(error) {
+                toast.error("Error fetching events");
+            }
+        }
+        fetchEvents();
+
+    });
+
+    useEffect(() => {
+      if(eventReport) {
+        setEventName(eventReport.event.event_name);
+        setEventReportDescription(eventReport.report_description);
+        setEventReportId(eventReport.event_reports_id)
+      }else {
+        toast.error("No event report data found.")
+       }
+
+    }, [eventReport]);
+
+    const handleEventNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setEventName(e.target.value);
+    };
+
+    const handleEventReportDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setEventReportDescription(e.target.value);
+    };
+
+    const handleSubmit = async (e: any) => {
+      e.preventDefault();
+      setIsLoading(true);
+      try {
+        await axios.post(`${import.meta.env.VITE_CANISTER_URL}/update-event-report`, {
+            event_reports_id: eventReportId,
+            report_description: eventReportDescription,
+            eventName: eventName
+        });
+        localStorage.setItem("updateSuccess", "true");
+        navigate('/admin/event-reports'); // Redirect after successful update
+      } catch (error) {
+        console.error('Error updating event report: ', error);
+        toast.error('Error updating event report');
+      } finally {
+        setIsLoading(false);
       }
-      fetchEvents();
-
-  });
-
-  const handleEventNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setEventName(e.target.value);
-  };
-
-  const handleEventReportDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setEventReportDescription(e.target.value);
-  };
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      await axios.post(`${import.meta.env.VITE_CANISTER_URL}/create-event-report`, {
-          report_description: eventReportDescription,
-          eventName: eventName
-      });
-      localStorage.setItem("createEventReport", "true");
-      navigate('/admin/event-reports'); // Redirect after successful update
-    } catch (error) {
-      console.error('Error updating event report: ', error);
-      toast.error('Error updating event report');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return(
+    };
+    
+  return (
     <>
-    <div className='flex justify-between items-center gap-4 px-4 pb-8'>
-      <h1 className="text-3xl font-bold">Create Event Report</h1>
+         <div className='flex justify-between items-center gap-4 px-4 pb-8'>
+      <h1 className="text-3xl font-bold">Edit Event Report</h1>
     </div>
     <form
           onSubmit={handleSubmit}
@@ -62,7 +77,7 @@ const CreateEventReport = () => {
             <label htmlFor="event_name" className="text-lg">
               Event Name:
             </label>
-            <select 
+           <select 
              name="event_name"
              id="event_name"
               value={eventName}
@@ -76,6 +91,7 @@ const CreateEventReport = () => {
                 <option 
                   value={event} 
                   key={event} 
+                  selected={event === eventName} // Correct way to set 'selected' in JSX
                 >
                   {event}
                 </option>
@@ -102,11 +118,11 @@ const CreateEventReport = () => {
           type='submit'
           disabled={isLoading}
           className="px-10 py-3 max-w-[350px] col-span-2 mx-auto rounded-md bg-lime-600 hover:bg-lime-700 text-white mt-4 text-lg font-bold">
-          {isLoading ? 'Creating...' : 'Create Event Report'}
+          {isLoading ? 'Updating...' : 'Update Event Report'}
           </button>
         </form>
- </>
+    </>
   )
 }
 
-export default CreateEventReport
+export default EditTrackEventReport

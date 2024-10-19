@@ -15,12 +15,17 @@ import CreateEventReport from "./CreateEventReport";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditTrackEvent from "../components/EditTrackEvent";
-
+import EditTrackEventReport from "../components/EditTrackEventReport";
+import { useNavigate } from "react-router-dom";
 const AdminDashboard = () => {
+
+  const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem("adminAuthenticated") === "true") {
       toast.success("Login Successfully!");
       localStorage.setItem("adminAuthenticated", "false");
+    }else {
+        navigate("/admin-login");
     }
   }, []);
 
@@ -44,6 +49,7 @@ const AdminDashboard = () => {
               <Route path="track-event" element={<TrackEvent />} />
               <Route path="track-event/edit" element={<EditTrackEvent />} />
               <Route path="track-event-report" element={<TrackEventReport />} />
+              <Route path="track-event-report/edit" element={<EditTrackEventReport />} />
               <Route
                 path="create-event-report"
                 element={<CreateEventReport />}

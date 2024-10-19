@@ -42,7 +42,10 @@ const EventsReportTable: React.FC<EventReportTableProps> = ({eventReports}) => {
             </p>
             
             <div className="card-actions justify-end">
-              <Link to={'/admin/track-event-report'} className="btn btn-primary">
+              <Link 
+              to={'/admin/track-event-report'} 
+              state={{eventReport}}
+              className="btn btn-primary">
                 View Report
               </Link>
             </div>

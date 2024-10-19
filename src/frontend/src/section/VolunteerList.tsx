@@ -32,6 +32,12 @@ const VolunteerList = () => {
       } 
     };
     fetchData();
+
+    const deletionSuccess = localStorage.getItem("deletionSuccess");
+    if(deletionSuccess === "true") {
+      toast.success("Event deleted successfully");
+      localStorage.setItem("deletionSuccess", "false");
+    }
     
   },[]);
 
