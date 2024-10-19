@@ -41,6 +41,9 @@ Route.get("/get-admin", ApisController.getAdmins); // Updated to match controlle
 Route.post("/create-admin", ApisController.createAdmin);
 Route.post("/update-admin", ApisController.updateAdmin);
 Route.post("/delete-admin", ApisController.deleteAdmin);
+// update specific
+Route.post("/update-admin-username", ApisController.updateAdminUsername);
+Route.post("/update-admin-password", ApisController.updateAdminPassword);
 
 // Event Routes
 Route.get("/get-events", ApisController.getEvents);

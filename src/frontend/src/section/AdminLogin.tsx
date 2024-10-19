@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; 
+import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
 
 // Define the Admin interface
 interface Admin {
+  admin_id: number;
   username: string;
   password: string;
 }
@@ -15,16 +15,18 @@ const AdminLogin = () => {
   const [adminData, setAdminData] = useState<Admin[]>([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [adminDataLocalStorage, setAdminDataLocalStorage] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true); // Added loading state
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_CANISTER_URL}/get-admin`);
-        setAdminData(response.data.data); 
-        
+        const response = await axios.get(
+          `${import.meta.env.VITE_CANISTER_URL}/get-admin`
+        );
+        setAdminData(response.data.data);
       } catch (error) {
         toast.error("Error fetching data from database");
       } finally {
@@ -33,7 +35,6 @@ const AdminLogin = () => {
     };
     fetchData();
   }, []);
-  
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent form refresh
@@ -43,15 +44,23 @@ const AdminLogin = () => {
       return;
     }
 
-    const foundAdmin = adminData.find(
-      (admin) =>
-        admin.username === username && // Case-insensitive comparison
-        admin.password === password
-    );
+    const foundAdmin = adminData.find((admin) => {
+      if (admin.username === username && admin.password === password) {
+        // get the value to set in local storage
+        const data = {
+          admin_id: admin.admin_id,
+          username: admin.username,
+          password: admin.password,
+        };
+        setAdminDataLocalStorage(data);
+        return true;
+      }
+    });
 
-  
     if (foundAdmin) {
       localStorage.setItem("adminAuthenticated", "true");
+      console.log(adminData);
+      localStorage.setItem("adminData", JSON.stringify(adminDataLocalStorage));
       // Redirect to the admin dashboard on success
       navigate("/admin");
     } else {
@@ -59,7 +68,6 @@ const AdminLogin = () => {
       toast.error("Invalid username or password"); // Show toast message
     }
   };
-  
 
   return (
     <section
@@ -73,9 +81,14 @@ const AdminLogin = () => {
             <h4 className="text-3xl font-bold">Admin Login</h4>
           </div>
 
-          <form onSubmit={handleLogin} className="grid gap-4 items-center text-left px-8">
+          <form
+            onSubmit={handleLogin}
+            className="grid gap-4 items-center text-left px-8"
+          >
             <div className="grid">
-              <label htmlFor="username" className="text-lg">Username</label>
+              <label htmlFor="username" className="text-lg">
+                Username
+              </label>
               <input
                 type="text"
                 name="username"
@@ -88,7 +101,9 @@ const AdminLogin = () => {
             </div>
 
             <div className="grid">
-              <label htmlFor="password" className="text-lg">Password</label>
+              <label htmlFor="password" className="text-lg">
+                Password
+              </label>
               <input
                 type="password"
                 name="password"
@@ -109,14 +124,16 @@ const AdminLogin = () => {
             >
               {isLoading ? "Loading..." : "LOGIN"}
             </button>
-            <Link to={'/admin-signup'} className="pt-3 text-center text-lg text-black hover:text-blue-500">
-                Don't have an account? Signup.
+            <Link
+              to={"/admin-signup"}
+              className="pt-3 text-center text-lg text-black hover:text-blue-500"
+            >
+              Don't have an account? Signup.
             </Link>
           </form>
         </div>
       </div>
       <ToastContainer />
-       
     </section>
   );
 };

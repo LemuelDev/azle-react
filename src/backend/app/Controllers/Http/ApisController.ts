@@ -93,6 +93,17 @@ export default class ApisController {
     await Admin.delete(admin_id);
     response.json({ status: 1, message: "Admin deleted!" });
   }
+  // update specific
+  static async updateAdminUsername(request: Request, response: Response) {
+    const { admin_id, username } = request.body;
+    await Admin.update(admin_id, { username });
+    response.json({ status: 1, message: "Admin updated!" });
+  }
+  static async updateAdminPassword(request: Request, response: Response) {
+    const { admin_id, password } = request.body;
+    await Admin.update(admin_id, { password });
+    response.json({ status: 1, message: "Admin updated!" });
+  }
 
   // Event CRUD
   static async getEvents(request: Request, response: Response) {
