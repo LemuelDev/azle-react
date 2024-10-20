@@ -59,8 +59,6 @@ const UpcommingEvents: React.FC<UpcomingEventsProps> = ({ eventData }) => {
                     })}
                   </p>
                   <p className="text-gray-800 mt-4 truncate">{event.event_details}</p>
-
-
                   <div className="mt-4">
                     <Link 
                     to={'/volunteer'}

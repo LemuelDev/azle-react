@@ -68,10 +68,21 @@ const EventReportPage = () => {
               </p>
               <div className='mt-5 py-3 rounded-lg pl-2 border-l-4 border-green-500 bg-green-100'>
                 <p className='text-gray-700 text-sm'>
-                  <strong>Date of event:</strong> <span className='text-gray-500 font-bold'>{report.event.event_date}</span>
+                  <strong>Date of event:</strong> <span className='text-gray-500 font-bold'>  
+                    {new Date(report.event.event_date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}</span>
                 </p>
                 <p className='text-gray-700 text-sm'>
-                  <strong>Time:</strong> <span className='text-gray-500 font-bold'>{report.event.event_time}</span>
+                  <strong>Time:</strong> <span className='text-gray-500 font-bold'>
+                  {new Date(`1970-01-01T${report.event.event_time}`).toLocaleTimeString('en-US', {
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      hour12: true, // For 12-hour format with AM/PM
+                    })}
+                  </span>
                 </p>
                 <p className='text-gray-700 text-sm'>
                   <strong>Address of event:</strong> <span className='text-gray-500 font-bold'>{report.event.event_address}</span>

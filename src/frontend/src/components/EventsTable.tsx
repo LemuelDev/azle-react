@@ -28,10 +28,20 @@ const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
             <div className="card-body max-w-1/2">
               <h2 className="card-title">{event.event_name}</h2>
               <p>
-                <span className='font-bold'>Date:</span> {event.event_date}
+                <span className='font-bold'>Date:</span> 
+                {new Date(event.event_date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
               </p>
               <p>
-                <span className='font-bold'>Time:</span> {event.event_time}
+                <span className='font-bold'>Time:</span> 
+                {new Date(`1970-01-01T${event.event_time}`).toLocaleTimeString('en-US', {
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      hour12: true, // For 12-hour format with AM/PM
+                    })}
               </p>
               <p>
                 <span className='font-bold'>Address:</span> {event.event_address}

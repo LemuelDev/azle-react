@@ -31,7 +31,7 @@ const EventsReportTable: React.FC<EventReportTableProps> = ({eventReports}) => {
        eventReports.map((eventReport) => (
         <div className="card bg-base-100 w-[350px] max-h-[450px] shadow-xl">
           <figure className="min-h-[180px] max-h-[180px]">
-            <img  src="/resilient climate.webp" alt={eventReport.event.event_name} />
+            <img src="Climate_Action.jpg" alt={eventReport.event.event_name} />
           </figure>
           <div className="card-body">
             <h2 className="card-title">{eventReport.event.event_name}</h2>
