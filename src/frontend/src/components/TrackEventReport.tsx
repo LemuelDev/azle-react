@@ -53,7 +53,7 @@ const TrackEventReport: React.FC = () => {
       {/* Image section (30%) */}
       <div className="w-full md:w-1/3">
         <img
-          src="/resilient climate.webp"
+          src="/Climate_Action.jpeg"
           alt="Event"
           className="w-full h-auto object-cover max-h-[550px]" // Ensures the image is responsive
         />

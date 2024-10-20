@@ -1,17 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {toast} from 'react-toastify';
-interface Volunteer {
-  volunteer_id: number;
-  firstname: string;
-  lastname: string;
-  middlename: string;
-  extensionname: string;
-  contact_name: string;
-  gender: string;
-  age: string;
-  address: string;
-}
+import { Volunteer } from '../components/types';
 
 interface VolunteerListTableProps {
   volunteers: Volunteer[];
@@ -21,6 +11,7 @@ interface VolunteerListTableProps {
 const VolunteerListTable: React.FC<VolunteerListTableProps> = ({ volunteers, setVolunteerData }) => {
   const [selectedVolunteerId, setSelectedVolunteerId] = useState<number | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDeleteClick = (volunteerId: number) => {
     setSelectedVolunteerId(volunteerId);
@@ -28,6 +19,7 @@ const VolunteerListTable: React.FC<VolunteerListTableProps> = ({ volunteers, set
   };
 
   const confirmDelete = async () => {
+    setIsLoading(true);
     if (selectedVolunteerId) {
       try{
         const response = await axios.post(`${import.meta.env.VITE_CANISTER_URL}/delete-volunteer`, {volunteer_id: selectedVolunteerId});  
@@ -38,9 +30,11 @@ const VolunteerListTable: React.FC<VolunteerListTableProps> = ({ volunteers, set
         localStorage.setItem("deletionSuccess", "true");
         toast.success(response.data.message);
         localStorage.setItem("deletionSuccess", "false");
+        setIsLoading(false);
       }catch(error){
         console.log("Error deleting volunteer: ", error);
         toast.error("Error deleting volunteer")
+        setIsLoading(false);
       }
     
     }
@@ -72,7 +66,7 @@ const VolunteerListTable: React.FC<VolunteerListTableProps> = ({ volunteers, set
                   <td className="max-lg:min-w-[200px]">{volunteer.address}</td>
                   <td>{volunteer.age}</td>
                   <td>{volunteer.gender}</td>
-                  <td>Tree Planting Campaign</td>
+                  <td>{volunteer.event_name}</td>
                   <td>
                     <div className="flex items-center justify-center gap-2">
                       <button
@@ -102,10 +96,11 @@ const VolunteerListTable: React.FC<VolunteerListTableProps> = ({ volunteers, set
                     Cancel
                   </button>
                   <button
+                    disabled={isLoading}
                     className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
                     onClick={confirmDelete} // Confirm deletion
                   >
-                    Confirm
+                    {isLoading ? 'Deleting...' : 'Confirm'}
                   </button>
                 </div>
               </div>

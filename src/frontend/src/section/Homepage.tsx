@@ -8,6 +8,7 @@ import './animation.css';
 import Footer from './Footer';
 import ContactUs from './ContactUs';
 import UpcommingEvents from './UpcommingEvents';
+
 interface Event {
   event_id: number;
   event_name: string;
@@ -26,7 +27,7 @@ interface EventReport {
 const Homepage = () => {
   const [eventData, setEventData] = useState<Event[]>([]);
   const [eventReport, setEventReportData] = useState<EventReport[]>([]);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -82,7 +83,7 @@ const Homepage = () => {
         </section>
         {/* para sa events */}
         
-        <UpcommingEvents/>
+        <UpcommingEvents eventData={eventData}/>
 
         {/* para sa Event Recent */}
             <section id='recent' className="relative bg-cover bg-center h-[80vh] bg-[url('/energy-efficiency.jpeg')]">
@@ -94,10 +95,6 @@ const Homepage = () => {
                     <Link to={'/eventreports'}
                     className="bg-green-500 hover:bg-green-700 text-white py-4 px-6 rounded-full shadow-lg transition duration-300">
                       View Recent Events</Link>
-                    <svg className="w-[40px] h-[40px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
-                    </svg>
-
                     </div>
                 </div>
             </section>
