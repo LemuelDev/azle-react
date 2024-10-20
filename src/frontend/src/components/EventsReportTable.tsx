@@ -37,9 +37,11 @@ const EventsReportTable: React.FC<EventReportTableProps> = ({eventReports}) => {
             <h2 className="card-title">{eventReport.event.event_name}</h2>
             
             {/* Truncated description */}
-            <p className="">
-              {eventReport.report_description}
-            </p>
+            <p className="mt-4 max-h-20 overflow-hidden">
+                    <span className="block overflow-hidden text-ellipsis whitespace-nowrap">
+                    {eventReport.report_description}
+                    </span>
+              </p>
             
             <div className="card-actions justify-end">
               <Link 

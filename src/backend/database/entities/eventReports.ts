@@ -17,9 +17,6 @@ export class EventReport extends BaseEntity {
   @Column({ type: "varchar", length: 255 })
   report_description: string;
 
-  @Column({ type: "varchar", length: 255 })
-  event_name: string;
-
   @ManyToOne(() => Event, (event) => event.event_id)
   event: Event;
 }

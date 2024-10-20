@@ -315,38 +315,62 @@ export default class ApisController {
 
   static async createEventReport(request: Request, response: Response) {
     try {
-      const { report_description, event_name } = request.body;
-      // Create new event report
-      const newEventReport = EventReport.create({
-        report_description,
-        event_name,
-      });
-      response.json({
-        status: 1,
-        message: "Event Report created!",
-        data: newEventReport,
-      });
+        const { report_description, event_id } = request.body; // Change to event_id
+        
+        // Fetch the event using the provided event_id
+        const event = await Event.findOne({ where: { event_id: event_id } });
+        if (!event) {
+            return response.json({ status: 0, message: "Event not found!" });
+        }
+        // Create new event report
+        const newEventReport = EventReport.create({
+            report_description,
+            event: event, // Assign the event object
+        });
+        await newEventReport.save();
+        response.json({
+            status: 1,
+            message: "Event Report created!",
+            data: newEventReport,
+        });
     } catch (error) {
-      response.json({ status: 0, message: (error as Error).message });
+        response.json({ status: 0, message: (error as Error).message });
     }
-  }
+}
 
-  static async updateEventReport(request: Request, response: Response) {
-    try {
-      const { event_reports_id, report_description, event_name } = request.body;
-      const updatedEventReport = await EventReport.update(event_reports_id, {
-        report_description,
-        event_name,
-      });
+static async updateEventReport(request: Request, response: Response) {
+  try {
+      const { event_reports_id, report_description, event_id } = request.body; // Use event_id instead of event_name
+
+      // Fetch the existing event report
+      const eventReport = await EventReport.findOne({ where: { event_reports_id }, relations: ["event"] });
+      if (!eventReport) {
+          return response.json({ status: 0, message: "Event report not found!" });
+      }
+
+      // Fetch the event using the provided event_id
+      const event = await Event.findOne({ where: { event_id } });
+      if (!event) {
+          return response.json({ status: 0, message: "Event not found!" });
+      }
+
+      // Update the event report
+      eventReport.report_description = report_description;
+      eventReport.event = event; // Assign the event object
+
+      // Save the updated event report
+      await eventReport.save();
+
       response.json({
-        status: 1,
-        message: "Event Report updated!",
-        data: updatedEventReport,
+          status: 1,
+          message: "Event Report updated!",
+          data: eventReport,
       });
-    } catch (error) {
+  } catch (error) {
       response.json({ status: 0, message: (error as Error).message });
-    }
   }
+}
+
 
   static async deleteEventReport(request: Request, response: Response) {
     try {

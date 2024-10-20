@@ -28,24 +28,6 @@ const Events = () => {
       } 
     };
     fetchData();
-    
-    const createEvent = localStorage.getItem("createEvent");
-    if(createEvent === "true") {
-        toast.success("Event created successfully");
-        localStorage.setItem("createEvent", "false");
-    }
-
-    const deletionSuccess = localStorage.getItem("deletionSuccess");
-    if(deletionSuccess === "true") {
-      toast.success("Event deleted successfully");
-      localStorage.setItem("deletionSuccess", "false");
-    }
-
-    const updateSuccess = localStorage.getItem("updateSuccess");
-    if(updateSuccess === "true") {
-      toast.success("Event updated successfully");
-      localStorage.setItem("updateSuccess", "false");
-    }
    
   },[]);
 

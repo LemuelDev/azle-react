@@ -32,7 +32,7 @@ const TrackEventReport: React.FC = () => {
         setModalOpen(false);
         setEventReportID(null); 
         localStorage.setItem("deletionSuccess", "true");
-        navigate("/admin/events");
+        navigate("/admin/event-reports");
       }catch(error){
         console.log("Error deleting event: ", error);
         toast.error("Error deleting event")
@@ -44,31 +44,36 @@ const TrackEventReport: React.FC = () => {
 
   return (
     <>
-    <div className='flex justify-between items-center gap-4 px-4'>
+     <div className='flex justify-between items-center gap-4 px-4'>
         <h1 className="text-3xl font-bold pb-4">Track Event Report</h1>
     </div>
 
-    <div className='flex justify-center items-center pt-8'>
-      <div className="card card-side bg-base-100 shadow-xl">
-          <figure className='max-h-[550px] h-auto'>
-            <img
-              src="./reforest.jpg"
-              alt="Movie" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">{eventReport.event_name}</h2>
-            <p>{eventReport.report_description}</p>
-            <div className="card-actions justify-end">
+    <div className="flex justify-center items-center pt-8">
+    <div className="flex flex-col md:flex-row w-full max-w-screen-lg">
+      {/* Image section (30%) */}
+      <div className="w-full md:w-1/3">
+        <img
+          src="/resilient climate.webp"
+          alt="Event"
+          className="w-full h-auto object-cover max-h-[550px]" // Ensures the image is responsive
+        />
+      </div>
+      
+      {/* Event details section (70%) */}
+      <div className="w-full md:w-2/3 flex flex-col justify-between p-4">
+        <h2 className="text-xl font-bold max-md:text-center">{eventReport.event.event_name}</h2>
+        <p className="flex-1 py-3">{eventReport.report_description}</p>
+        <div className="mt-auto flex justify-end space-x-2 pt-4">
               <Link 
               to={"/admin/track-event-report/edit"}
               state={{eventReport}}
               className="btn btn-primary"
               >Edit Event Report</Link>
-              <button className="btn btn-error text-white" onClick={() => handleDeleteClick(eventReport.event_id)}>Delete</button>
-            </div>
-          </div>
+              <button className="btn btn-error text-white" onClick={() => handleDeleteClick(eventReport.event_reports_id)}>Delete</button>
         </div>
+      </div>
     </div>
+  </div>
 
         {/* Confirmation Modal */}
         {isModalOpen && (

@@ -2,7 +2,7 @@ import React from 'react'
 import EventsReportTable from '../components/EventsReportTable'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import {toast} from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 interface Event {
@@ -56,7 +56,7 @@ const EventsReport = () => {
       toast.success("Event updated successfully");
       localStorage.setItem("updateSuccess", "false");
     }
-
+    
   }, []);
 
   return (
@@ -64,12 +64,13 @@ const EventsReport = () => {
       <div className='flex justify-between items-center gap-4 px-4'>
         <h1 className="text-3xl font-bold">Event Reports</h1>
         {eventReport.length > 0 && (
-          <Link to={'/admin/create-event'} className='btn btn-primary'>
-            Add Event
+          <Link to={'/admin/create-event-report'} className='btn btn-primary'>
+            Add Event Reports
           </Link>
         )}
       </div> 
       <EventsReportTable eventReports={eventReport} />
+      <ToastContainer/>
     </>
   )
   

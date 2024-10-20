@@ -17,7 +17,6 @@ interface Event {
 interface EventReport {
   event_reports_id: number;
   report_description: string;
-  event_name: string;
   event: Event;
 }
 

@@ -2,6 +2,13 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate} from 'react-router-dom';
 import {toast} from "react-toastify";
+
+
+interface Event {
+  event_id: number; // Make sure this exists
+  event_name: string; // Make sure this exists
+  // Add other properties as necessary
+}
 const EditTrackEventReport = () => {
 
     const location = useLocation();
@@ -9,9 +16,9 @@ const EditTrackEventReport = () => {
     const { eventReport } = location.state || {};
     const [isLoading, setIsLoading] = useState(false);
     const [eventReportId, setEventReportId] = useState<number>(0);
-    const [eventName, setEventName]  = useState("");
+    const [eventId, setEventId]  = useState<number>(0);
     const [eventReportDescription, setEventReportDescription] = useState("");
-    const [availableEvents, setAvailableEvents] = useState([]);
+    const [availableEvents, setAvailableEvents] = useState<Event[]>([]);
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -28,7 +35,7 @@ const EditTrackEventReport = () => {
 
     useEffect(() => {
       if(eventReport) {
-        setEventName(eventReport.event.event_name);
+        setEventId(eventReport.event.event_id);
         setEventReportDescription(eventReport.report_description);
         setEventReportId(eventReport.event_reports_id)
       }else {
@@ -38,7 +45,7 @@ const EditTrackEventReport = () => {
     }, [eventReport]);
 
     const handleEventNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setEventName(e.target.value);
+      setEventId(Number(e.target.value));
     };
 
     const handleEventReportDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -52,7 +59,7 @@ const EditTrackEventReport = () => {
         await axios.post(`${import.meta.env.VITE_CANISTER_URL}/update-event-report`, {
             event_reports_id: eventReportId,
             report_description: eventReportDescription,
-            eventName: eventName
+            event_id: eventId
         });
         localStorage.setItem("updateSuccess", "true");
         navigate('/admin/event-reports'); // Redirect after successful update
@@ -80,7 +87,7 @@ const EditTrackEventReport = () => {
            <select 
              name="event_name"
              id="event_name"
-              value={eventName}
+             value={eventId}
               onChange={handleEventNameChange}
              className="shadow-lg rounded-md px-10 py-2 bg-transparent outline-none border-2 border-gray-600 text-black placeholder:text-black w-full"
              required // Added required attribute
@@ -89,11 +96,11 @@ const EditTrackEventReport = () => {
               availableEvents.length > 0 ? 
               availableEvents.map((event) => (
                 <option 
-                  value={event} 
-                  key={event} 
-                  selected={event === eventName} // Correct way to set 'selected' in JSX
+                  value={event.event_name} 
+                  key={event.event_id} 
+                  selected={event.event_id === eventId} // Correct way to set 'selected' in JSX
                 >
-                  {event}
+                  {event.event_name}
                 </option>
               )) : null
             }
