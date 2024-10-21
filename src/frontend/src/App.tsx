@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminSignup from "./section/AdminSignup";
 import EventReportPage from "./section/EventReportPage";
 import Navbar from "./section/Navbar";
+import EventsPage from "./section/EventsPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           {/* Define routes with their respective components */}
           <Route path="/" element={<Homepage />} />
           <Route path="/volunteer" element={<Volunteerpage />} />
+          <Route path="/events" element={<EventsPage />} />
           <Route path="/eventreports" element={<EventReportPage />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin-signup" element={<AdminSignup />} />
