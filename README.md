@@ -1,14 +1,9 @@
-# ICP Development Environment with Azle and React
+## GreenFuture Volunteer 
 
-This template gives you everything you need to build a full-stack Web3 application on the [Internet Computer](https://internetcomputer.org/).
-It includes a frontend built with Vite and React, and a backend written in JS/TS (Azle).
+GreenFuture Volunteer is an innovative web application designed to bridge the gap between environmentally conscious individuals and local environmental initiatives. The platform connects volunteers with a wide range of eco-friendly projects, such as tree planting, clean-up drives, recycling programs, and conservation efforts. By offering a user-friendly interface, GreenFuture Volunteer makes it easy for users to search for, sign up, and participate in various sustainability-focused events in their communities.
 
-## Get started with one click:
-### Locally:
+The application also allows organizers of environmental initiatives to create and manage events , event reports, and  track volunteer participation. Whether you're passionate about reducing plastic waste, restoring natural habitats, or promoting sustainable living, GreenFuture Volunteer provides a streamlined way to contribute to positive environmental change. It fosters collaboration between volunteers and local communities, empowering individuals to take an active role in protecting and preserving the planet.
 
-Make sure you have you have the latest version of Docker (e.g. >25) and VS Code installed and running, then click the button below
-
-[![Open locally in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/icPHubPH/azle-react)
 
 ### In your browser:
 
@@ -25,27 +20,9 @@ dfx start --clean # Start a local ICP node
 # In a new terminal window:
 dfx deploy # Deploy smart contract locally
 ```
-
 The smart contract will be reachable under `http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943`.
-Call the smart contract using `curl` on the command line: 
 
-```bash
-# create configuration
-curl -X POST http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943/configuration/insert -H 'content-type: application/json' -d '{"key": "site_name", "value": "ICP HUB PH"}'
-# update configuration
-curl -X POST http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943/configuration/update -H 'content-type: application/json' -d '{"key": "site_name", "value": "ICP HUB Philippines"}'
-# delete configuration
-curl -X POST http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943/configuration/delete -H 'content-type: application/json' -d '{"key": "site_name"}'
-# get configurations endpoint
-curl http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943/configurations
 
-```
-You can also use tools like Postman or HTTPie to interact with the smart contract.
-To redeploy the smart contract, run `dfx deploy` again.
-
-When ready, run `dfx deploy --ic` to deploy your application to the ICP mainnet.
-The command will print a different canister URL for mainnet, ending in `.raw.icp0.io`.
-You can make calls to the smart contract on mainnet just like to the local one!
 
 ## 🛠️ Technology Stack
 
@@ -53,21 +30,26 @@ You can make calls to the smart contract on mainnet just like to the local one!
 - [Vite](https://vitejs.dev/): high-performance tooling for front-end web development
 - [React](https://reactjs.org/): a component-based UI library
 - [TypeScript](https://www.typescriptlang.org/): JavaScript extended with syntax for types
-- [Sass](https://sass-lang.com/): an extended syntax for CSS stylesheets
-
-## 📚 Documentation
-
-- [Azle book](https://demergent-labs.github.io/azle/the_azle_book.html)
-- [Internet Computer docs](https://internetcomputer.org/docs/current/developer-docs/ic-overview)
-- [Internet Computer wiki](https://wiki.internetcomputer.org/)
-- [Internet Computer forum](https://forum.dfinity.org/)
-- [Vite developer docs](https://vitejs.dev/guide/)
-- [React quick start guide](https://react.dev/learn)
-- [`dfx.json` reference schema](https://internetcomputer.org/docs/current/references/dfx-json-reference/)
-- [Developer Experience Feedback Board](https://dx.internetcomputer.org/)
+- [Tailwind CSS](https://tailwindcss.com/): a utility-first CSS framework for rapid UI development.
+- [Express.js](https://expressjs.com/): a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 
 
-## 💡 Tips and Tricks
+## TEAM PRMSU CCIT
+MEMBERS:
+JOHN LEMUEL ENCINA - Project Manager/ Frontend and Backend Developer
+ARNEL GWENN NUQUI - BACKEND DEVELOPER
+JOHSUA REY BURCE - UI DESIGN/ FRONTEND DEVELOPER
+
+COACHES: 
+MICHAEL E. EALA
+DANIEL A. BACHILLAR
+
+
+
+
+
+
+
 
 - When developing remotely, navigating to the canister's frontend in the browser will not work.
 Use `curl` on the command line instead, or develop locally.
