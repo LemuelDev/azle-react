@@ -192,7 +192,7 @@ const Homepage = () => {
                         <img src="/conserve water.jpg" alt="" className='rounded-xl w-[120px] h-[100px]' />
                     </div>
                     <div id='animate'>
-                    <a target='_blank' href="https://solarschools.net/knowledge-bank/sustainability/reduce-reuse-recycle"><h4 className='text-xl font-bold py-2 hover:text-blue-500 underline underline-offset-2'>Conservation of Water Resources</h4></a>
+                    <a target='_blank' href="https://byjus.com/biology/how-can-we-conserve-water/#:~:text=Conservation%20of%20water%20mainly%20refers,and%20to%20avoid%20the%20scarcity."><h4 className='text-xl font-bold py-2 hover:text-blue-500 underline underline-offset-2'>Conservation of Water Resources</h4></a>
                         <p className='text-md max-w-[400px] '>Protect water bodies and adopt water-efficient practices in agriculture, industry, and households to safeguard this vital resource.</p>
                     </div>
                 </div>
@@ -201,7 +201,7 @@ const Homepage = () => {
                         <img src="/plant based diet.jpg" alt="" className='rounded-xl w-[120px] h-[100px]' />
                     </div>
                     <div id='animate'>
-                        <a target='_blank' href="https://solarschools.net/knowledge-bank/sustainability/reduce-reuse-recycle"><h4 className='text-xl font-bold py-2 hover:text-blue-500 underline underline-offset-2'>Adopt a Plant-Based Diet</h4></a>
+                        <a target='_blank' href="https://www.downtoearth.org/articles/health-tips/81/adopting-plant-based-diet-one-step-time"><h4 className='text-xl font-bold py-2 hover:text-blue-500 underline underline-offset-2'>Adopt a Plant-Based Diet</h4></a>
                         <p className='text-md max-w-[400px] '>Reducing meat consumption can lower methane emissions from livestock and decrease the land and water used for animal farming.</p>
                     </div>
                 </div>
@@ -217,7 +217,7 @@ const Homepage = () => {
                    
             </div>
         </section>
-        
+
         <ContactUs/>
         <Footer/>
         <ToastContainer/>

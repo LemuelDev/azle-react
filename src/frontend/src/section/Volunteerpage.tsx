@@ -56,8 +56,33 @@ const Volunteerpage: React.FC  = () => {
 
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsLoading(true);  
+        setIsLoading(true);
+    
         try {
+            // Fetch all volunteers to check if the volunteer is already registered
+            const allVolunteersResponse = await axios.get(`${import.meta.env.VITE_CANISTER_URL}/get-volunteers`);
+            const allVolunteers = allVolunteersResponse.data.data;
+    
+            // Check if a volunteer with the same details already exists
+            const volunteerExists = allVolunteers.some((volunteer: any) => 
+                volunteer.firstname === firstname && 
+                volunteer.lastname === lastname && 
+                volunteer.middlename === middlename &&
+                volunteer.extensionname === extensioname &&
+                volunteer.gender === gender &&
+                volunteer.address === address &&
+                volunteer.contact_name === contactName && 
+                volunteer.event_name === event.event_name 
+                
+            );
+    
+            if (volunteerExists) {
+                toast.error("Volunteer is already registered for this event.");
+                setIsLoading(false);
+                return;  // Stop the execution if already registered
+            }
+    
+            // Proceed to create the volunteer if not already registered
             const response = await axios.post(`${import.meta.env.VITE_CANISTER_URL}/create-volunteer`, {
                 firstname: firstname,
                 lastname: lastname,
@@ -69,16 +94,18 @@ const Volunteerpage: React.FC  = () => {
                 address: address,
                 event_name: event.event_name
             });
+    
             console.log(response.data);
             toast.success("Signup success!");
             setIsLoading(false);
             
-        }catch(error) {
+        } catch (error) {
             console.log("Error creating volunteer: ", error);
-            toast.error("Error signing up to the event.")
+            toast.error("Error signing up to the event.");
             setIsLoading(false);
         }
-      }
+    };
+    
 
     
 return (
