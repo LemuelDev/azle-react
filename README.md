@@ -35,23 +35,15 @@ The smart contract will be reachable under `http://bkyz2-fmaaa-aaaaa-qaaaq-cai.l
 
 
 ## TEAM PRMSU CCIT
-MEMBERS:
-JOHN LEMUEL ENCINA - Project Manager/ Frontend and Backend Developer
-ARNEL GWENN NUQUI - BACKEND DEVELOPER
-JOHSUA REY BURCE - UI DESIGN/ FRONTEND DEVELOPER
 
-COACHES: 
-MICHAEL E. EALA
-DANIEL A. BACHILLAR
+**MEMBERS:**
+- **John Lemuel Encina** - Project Manager / Frontend and Backend Developer
+- **Arnel Gwenn Nuqui** - Backend Developer
+- **Joshua Rey Burce** - UI Design / Frontend Developer
 
-
-
+**COACHES:**
+- **Michael E. Eala**
+- **Daniel A. Bachillar**
 
 
-
-
-
-- When developing remotely, navigating to the canister's frontend in the browser will not work.
-Use `curl` on the command line instead, or develop locally.
-
-- If you get an error "Error: An error happened during communication with the replica: ... Connection refused", run `dfx start --clean` to start dfx.
+@RAITE_HACKATHON_2024
