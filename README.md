@@ -39,7 +39,7 @@ The smart contract will be reachable under `http://bkyz2-fmaaa-aaaaa-qaaaq-cai.l
 **MEMBERS:**
 - **John Lemuel Encina** - Project Manager / Frontend and Backend Developer
 - **Arnel Gwenn Nuqui** - Backend Developer
-- **Joshua Rey Burce** - UI Design / Frontend Developer
+- **Johsua Rey Burce** - UI Design / Frontend Developer
 
 **COACHES:**
 - **Michael E. Eala**
